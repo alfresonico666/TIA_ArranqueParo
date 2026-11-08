@@ -2,7 +2,7 @@
 <Document>
   <Engineering version="V17" />
   <DocumentInfo>
-    <Created>2026-11-08T05:33:48.8149378Z</Created>
+    <Created>2026-11-08T05:39:56.7608538Z</Created>
     <ExportSetting>WithDefaults</ExportSetting>
     <InstalledProducts>
       <Product>
@@ -894,7 +894,7 @@
           <LinearScaling>false</LinearScaling>
           <LogicalAddress />
           <MandatoryCommenting>false</MandatoryCommenting>
-          <Name>PB_Paro_NC</Name>
+          <Name>PB_Paro</Name>
           <Persistency>false</Persistency>
           <QualityCode>false</QualityCode>
           <ScalingHmiHigh>100</ScalingHmiHigh>
@@ -916,7 +916,7 @@
             <Name>HMI_Connection_1</Name>
           </Connection>
           <ControllerTag TargetID="@OpenLink">
-            <Name>PB_Paro_NC</Name>
+            <Name>PB_Paro</Name>
           </ControllerTag>
           <DataType TargetID="@OpenLink">
             <Name>Bool</Name>
@@ -988,7 +988,7 @@
           <LinearScaling>false</LinearScaling>
           <LogicalAddress />
           <MandatoryCommenting>false</MandatoryCommenting>
-          <Name>MOT1_Termico_NC</Name>
+          <Name>MOT1_Termico_Falla</Name>
           <Persistency>false</Persistency>
           <QualityCode>false</QualityCode>
           <ScalingHmiHigh>100</ScalingHmiHigh>
@@ -1010,7 +1010,7 @@
             <Name>HMI_Connection_1</Name>
           </Connection>
           <ControllerTag TargetID="@OpenLink">
-            <Name>MOT1_Termico_NC</Name>
+            <Name>MOT1_Termico_Falla</Name>
           </ControllerTag>
           <DataType TargetID="@OpenLink">
             <Name>Bool</Name>

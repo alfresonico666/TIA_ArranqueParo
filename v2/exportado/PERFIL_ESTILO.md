@@ -10,15 +10,15 @@ Generado automáticamente por TIA_MCP_V17. Úsalo como guía para programar igua
 ## Convenciones de nombres
 - Estilo predominante: Snake_Case (15), PascalCase (1)
 - OB: prefijos sin prefijo fijo; ej.: Main
-- FB: prefijos FB_ (100 %); ej.: FB_Mando_Motor, FB_Motor_Banderas, FB_Motor_Moore, FB_Motor_Mealy
+- FB: prefijos FB_ (100 %); ej.: FB_Motor_Banderas, FB_Motor_Moore, FB_Motor_Mealy, FB_Mando_Motor
 - GlobalDB: prefijos sin prefijo fijo; ej.: DB_HMI
 - InstanceDB: prefijos DB_ (100 %); ej.: DB_Mando, DB_Motor_Banderas, DB_Motor_Moore, DB_Motor_Mealy
-- Interfaz Input: prefijos HMI_ (16 %), PB_ (11 %); ej.: PB_Marcha, PB_Paro_NC, Termico_NC, HMI_Marcha, HMI_Paro, HMI_Reset
-- Interfaz Output: prefijos sin prefijo fijo; ej.: Marcha, Paro, Termico_OK, Reset, Motor, Piloto_Marcha
+- Interfaz Input: prefijos HMI_ (16 %), PB_ (11 %); ej.: Marcha, Paro, Termico_OK, Reset, Marcha, Paro
+- Interfaz Output: prefijos sin prefijo fijo; ej.: Motor, Piloto_Marcha, Piloto_Falla, Estado, Motor, Piloto_Marcha
 - Interfaz Static: prefijos Cmd_ (21 %), B_ (14 %); ej.: Cmd_Marcha, Cmd_Paro, Cmd_Reset, Sel_Estilo, Estado, Motor_En_Marcha
 - Interfaz Temp: prefijos sin prefijo fijo; ej.: Estado_Previo, Estado_Previo
 - Tags: 6, con comentario 100 %; prefijos PB_ (33 %), HL_ (33 %)
-  ej.: PB_Marcha %M10.0, PB_Paro_NC %M10.1, MOT1_Termico_NC %M10.2, KM1_Motor %M10.3, HL_Marcha %M10.4, HL_Falla %M10.5
+  ej.: PB_Marcha %M10.0, PB_Paro %M10.1, KM1_Motor %M10.3, MOT1_Termico_Falla %M10.2, HL_Marcha %M10.4, HL_Falla %M10.5
 
 ## Instrucciones más usadas
 - Contact (40), Eq (20), Move (18), Coil (17), Call FB_Mando_Motor (6), Call FB_Motor_Banderas (4), Call FB_Motor_Moore (4), Call FB_Motor_Mealy (4), SCoil (1), RCoil (1)
@@ -42,7 +42,7 @@ Main
 ### Main › Red 1: MANDO: pulsadores + HMI
 > Une entradas físicas y botones de la HMI.
 ```
-CALL "FB_Mando_Motor" ("DB_Mando")(en:=1, PB_Marcha:="PB_Marcha", PB_Paro_NC:="PB_Paro_NC", Termico_NC:="MOT1_Termico_NC", HMI_Marcha:="DB_HMI".Cmd_Marcha, HMI_Paro:="DB_HMI".Cmd_Paro, HMI_Reset:="DB_HMI".Cmd_Reset)
+CALL "FB_Mando_Motor" ("DB_Mando")(en:=1, PB_Marcha:="PB_Marcha", PB_Paro:="PB_Paro", Termico_Falla:="MOT1_Termico_Falla", HMI_Marcha:="DB_HMI".Cmd_Marcha, HMI_Paro:="DB_HMI".Cmd_Paro, HMI_Reset:="DB_HMI".Cmd_Reset)
 ```
 ### Main › Red 2: ESTILO 1: BANDERAS (S/R)
 ```

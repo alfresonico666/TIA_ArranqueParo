@@ -2,7 +2,7 @@
 <Document>
   <Engineering version="V17" />
   <DocumentInfo>
-    <Created>2026-11-08T05:33:48.7293751Z</Created>
+    <Created>2026-11-08T05:39:56.6360607Z</Created>
     <ExportSetting>WithDefaults</ExportSetting>
     <InstalledProducts>
       <Product>
@@ -1021,9 +1021,9 @@
                   </Hmi.Dynamic.TagElementTrigger>
                   <Hmi.Dynamic.Range ID="71" CompositionName="RangeValues">
                     <AttributeList>
-                      <BackColor>220, 0, 0</BackColor>
+                      <BackColor>120, 120, 120</BackColor>
                       <FlashingType>No</FlashingType>
-                      <ForeColor>220, 0, 0</ForeColor>
+                      <ForeColor>120, 120, 120</ForeColor>
                       <LowerLimit>0</LowerLimit>
                       <UpperLimit>0</UpperLimit>
                     </AttributeList>
@@ -1058,7 +1058,7 @@
               <HorizontalAlignment>Left</HorizontalAlignment>
               <Left>137</Left>
               <LeftMargin>2</LeftMargin>
-              <ObjectName>Txt_PB_Paro_NC</ObjectName>
+              <ObjectName>Txt_PB_Paro</ObjectName>
               <RightMargin>2</RightMargin>
               <TabIndex>-1</TabIndex>
               <TextOrientation>Horizontal</TextOrientation>
@@ -1124,7 +1124,7 @@
               <HorizontalAlignment>Left</HorizontalAlignment>
               <Left>200</Left>
               <LeftMargin>2</LeftMargin>
-              <ObjectName>Des_PB_Paro_NC</ObjectName>
+              <ObjectName>Des_PB_Paro</ObjectName>
               <RightMargin>2</RightMargin>
               <TabIndex>-1</TabIndex>
               <TextOrientation>Horizontal</TextOrientation>
@@ -1160,13 +1160,13 @@
                   <MultilingualTextItem ID="7F" CompositionName="Items">
                     <AttributeList>
                       <Culture>en-US</Culture>
-                      <Text><body><p>• Pulsador PARO (NC)</p></body></Text>
+                      <Text><body><p>• Pulsador PARO</p></body></Text>
                     </AttributeList>
                   </MultilingualTextItem>
                   <MultilingualTextItem ID="80" CompositionName="Items">
                     <AttributeList>
                       <Culture>es-MX</Culture>
-                      <Text><body><p>• Pulsador PARO (NC)</p></body></Text>
+                      <Text><body><p>• Pulsador PARO</p></body></Text>
                     </AttributeList>
                   </MultilingualTextItem>
                 </ObjectList>
@@ -1183,7 +1183,7 @@
               <Flashing>None</Flashing>
               <Height>26</Height>
               <Left>420</Left>
-              <ObjectName>Ind_PB_Paro_NC</ObjectName>
+              <ObjectName>Ind_PB_Paro</ObjectName>
               <RoundCornerHeight>15</RoundCornerHeight>
               <RoundCornerWidth>10</RoundCornerWidth>
               <TabIndex>-1</TabIndex>
@@ -1200,24 +1200,24 @@
                   <Hmi.Dynamic.TagElementTrigger ID="83" CompositionName="RangeTag">
                     <LinkList>
                       <Tag TargetID="@OpenLink">
-                        <Name>PB_Paro_NC</Name>
+                        <Name>PB_Paro</Name>
                       </Tag>
                     </LinkList>
                   </Hmi.Dynamic.TagElementTrigger>
                   <Hmi.Dynamic.Range ID="86" CompositionName="RangeValues">
                     <AttributeList>
-                      <BackColor>220, 0, 0</BackColor>
+                      <BackColor>120, 120, 120</BackColor>
                       <FlashingType>No</FlashingType>
-                      <ForeColor>220, 0, 0</ForeColor>
+                      <ForeColor>120, 120, 120</ForeColor>
                       <LowerLimit>0</LowerLimit>
                       <UpperLimit>0</UpperLimit>
                     </AttributeList>
                   </Hmi.Dynamic.Range>
                   <Hmi.Dynamic.Range ID="87" CompositionName="RangeValues">
                     <AttributeList>
-                      <BackColor>0, 200, 0</BackColor>
+                      <BackColor>220, 0, 0</BackColor>
                       <FlashingType>No</FlashingType>
-                      <ForeColor>0, 200, 0</ForeColor>
+                      <ForeColor>220, 0, 0</ForeColor>
                       <LowerLimit>1</LowerLimit>
                       <UpperLimit>1</UpperLimit>
                     </AttributeList>
@@ -1243,7 +1243,7 @@
               <HorizontalAlignment>Left</HorizontalAlignment>
               <Left>137</Left>
               <LeftMargin>2</LeftMargin>
-              <ObjectName>Txt_MOT1_Termico_NC</ObjectName>
+              <ObjectName>Txt_MOT1_Termico_Falla</ObjectName>
               <RightMargin>2</RightMargin>
               <TabIndex>-1</TabIndex>
               <TextOrientation>Horizontal</TextOrientation>
@@ -1309,7 +1309,7 @@
               <HorizontalAlignment>Left</HorizontalAlignment>
               <Left>200</Left>
               <LeftMargin>2</LeftMargin>
-              <ObjectName>Des_MOT1_Termico_NC</ObjectName>
+              <ObjectName>Des_MOT1_Termico_Falla</ObjectName>
               <RightMargin>2</RightMargin>
               <TabIndex>-1</TabIndex>
               <TextOrientation>Horizontal</TextOrientation>
@@ -1345,13 +1345,13 @@
                   <MultilingualTextItem ID="94" CompositionName="Items">
                     <AttributeList>
                       <Culture>en-US</Culture>
-                      <Text><body><p>• Térmico M1 (NC)</p></body></Text>
+                      <Text><body><p>• Térmico M1 disparado</p></body></Text>
                     </AttributeList>
                   </MultilingualTextItem>
                   <MultilingualTextItem ID="95" CompositionName="Items">
                     <AttributeList>
                       <Culture>es-MX</Culture>
-                      <Text><body><p>• Térmico M1 (NC)</p></body></Text>
+                      <Text><body><p>• Térmico M1 disparado</p></body></Text>
                     </AttributeList>
                   </MultilingualTextItem>
                 </ObjectList>
@@ -1368,7 +1368,7 @@
               <Flashing>None</Flashing>
               <Height>26</Height>
               <Left>420</Left>
-              <ObjectName>Ind_MOT1_Termico_NC</ObjectName>
+              <ObjectName>Ind_MOT1_Termico_Falla</ObjectName>
               <RoundCornerHeight>15</RoundCornerHeight>
               <RoundCornerWidth>10</RoundCornerWidth>
               <TabIndex>-1</TabIndex>
@@ -1385,24 +1385,24 @@
                   <Hmi.Dynamic.TagElementTrigger ID="98" CompositionName="RangeTag">
                     <LinkList>
                       <Tag TargetID="@OpenLink">
-                        <Name>MOT1_Termico_NC</Name>
+                        <Name>MOT1_Termico_Falla</Name>
                       </Tag>
                     </LinkList>
                   </Hmi.Dynamic.TagElementTrigger>
                   <Hmi.Dynamic.Range ID="9B" CompositionName="RangeValues">
                     <AttributeList>
-                      <BackColor>220, 0, 0</BackColor>
+                      <BackColor>120, 120, 120</BackColor>
                       <FlashingType>No</FlashingType>
-                      <ForeColor>220, 0, 0</ForeColor>
+                      <ForeColor>120, 120, 120</ForeColor>
                       <LowerLimit>0</LowerLimit>
                       <UpperLimit>0</UpperLimit>
                     </AttributeList>
                   </Hmi.Dynamic.Range>
                   <Hmi.Dynamic.Range ID="9C" CompositionName="RangeValues">
                     <AttributeList>
-                      <BackColor>0, 200, 0</BackColor>
+                      <BackColor>220, 0, 0</BackColor>
                       <FlashingType>No</FlashingType>
-                      <ForeColor>0, 200, 0</ForeColor>
+                      <ForeColor>220, 0, 0</ForeColor>
                       <LowerLimit>1</LowerLimit>
                       <UpperLimit>1</UpperLimit>
                     </AttributeList>
@@ -1576,9 +1576,9 @@
                   </Hmi.Dynamic.TagElementTrigger>
                   <Hmi.Dynamic.Range ID="B0" CompositionName="RangeValues">
                     <AttributeList>
-                      <BackColor>220, 0, 0</BackColor>
+                      <BackColor>120, 120, 120</BackColor>
                       <FlashingType>No</FlashingType>
-                      <ForeColor>220, 0, 0</ForeColor>
+                      <ForeColor>120, 120, 120</ForeColor>
                       <LowerLimit>0</LowerLimit>
                       <UpperLimit>0</UpperLimit>
                     </AttributeList>
@@ -1761,9 +1761,9 @@
                   </Hmi.Dynamic.TagElementTrigger>
                   <Hmi.Dynamic.Range ID="C5" CompositionName="RangeValues">
                     <AttributeList>
-                      <BackColor>220, 0, 0</BackColor>
+                      <BackColor>120, 120, 120</BackColor>
                       <FlashingType>No</FlashingType>
-                      <ForeColor>220, 0, 0</ForeColor>
+                      <ForeColor>120, 120, 120</ForeColor>
                       <LowerLimit>0</LowerLimit>
                       <UpperLimit>0</UpperLimit>
                     </AttributeList>
@@ -1946,18 +1946,18 @@
                   </Hmi.Dynamic.TagElementTrigger>
                   <Hmi.Dynamic.Range ID="DA" CompositionName="RangeValues">
                     <AttributeList>
-                      <BackColor>220, 0, 0</BackColor>
+                      <BackColor>120, 120, 120</BackColor>
                       <FlashingType>No</FlashingType>
-                      <ForeColor>220, 0, 0</ForeColor>
+                      <ForeColor>120, 120, 120</ForeColor>
                       <LowerLimit>0</LowerLimit>
                       <UpperLimit>0</UpperLimit>
                     </AttributeList>
                   </Hmi.Dynamic.Range>
                   <Hmi.Dynamic.Range ID="DB" CompositionName="RangeValues">
                     <AttributeList>
-                      <BackColor>0, 200, 0</BackColor>
+                      <BackColor>220, 0, 0</BackColor>
                       <FlashingType>No</FlashingType>
-                      <ForeColor>0, 200, 0</ForeColor>
+                      <ForeColor>220, 0, 0</ForeColor>
                       <LowerLimit>1</LowerLimit>
                       <UpperLimit>1</UpperLimit>
                     </AttributeList>

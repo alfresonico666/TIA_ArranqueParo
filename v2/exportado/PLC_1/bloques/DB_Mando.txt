@@ -3,8 +3,8 @@ Instancia de: FB_Mando_Motor
 Interfaz:
   Input:
     PB_Marcha : Bool
-    PB_Paro_NC : Bool
-    Termico_NC : Bool
+    PB_Paro : Bool
+    Termico_Falla : Bool
     HMI_Marcha : Bool
     HMI_Paro : Bool
     HMI_Reset : Bool

@@ -34,8 +34,8 @@ cada uno, y el selector decide cuál maneja el contactor real.
 | Tabla | Tag | Dirección | Descripción |
 |---|---|---|---|
 | Pulsadores_y_selectores | `PB_Marcha` | %M10.0 | Pulsador MARCHA (NA) |
-| Pulsadores_y_selectores | `PB_Paro_NC` | %M10.1 | Pulsador PARO (**NC**, 1 = no pulsado) |
-| Motores | `MOT1_Termico_NC` | %M10.2 | Relé térmico 95-96 (**NC**, 1 = sin falla) |
+| Pulsadores_y_selectores | `PB_Paro` | %M10.1 | Pulsador PARO (1 = pulsado) |
+| Motores | `MOT1_Termico_Falla` | %M10.2 | Relé térmico (1 = disparado) |
 | Motores | `KM1_Motor` | %M10.3 | Contactor KM1 |
 | Pilotos | `HL_Marcha` | %M10.4 | Piloto verde |
 | Pilotos | `HL_Falla` | %M10.5 | Piloto rojo |
@@ -110,14 +110,14 @@ Con el proyecto **cerrado**, usa `generar_v2.py --enlazar-plc`. En ambos casos e
 ### 3. Probar con PLCSIM + simulación de HMI
 1. Selecciona `PLC_1` → **Iniciar simulación** → **Cargar** → **RUN**.
 2. Selecciona `HMI_1` → **Iniciar simulación**.
-3. En una tabla de observación pon `PB_Paro_NC = 1` y `MOT1_Termico_NC = 1`. Es el reposo real: los contactos NC están cerrados.
+3. No hace falta preparar nada: con todas las memorias en 0 el sistema está en reposo. Para simular una falla del térmico, pon `MOT1_Termico_Falla` (M10.2) = 1 en una tabla de observación.
 
 | # | Acción (HMI o tabla) | Banderas | Moore | Mealy |
 |---|---|---|---|---|
 | 1 | MARCHA | Motor ON, estado MARCHA | Motor ON, MARCHA (10) | Motor ON, MARCHA (10) |
 | 2 | PARO | Motor OFF | Motor OFF → REPOSO | Motor OFF en el mismo ciclo → REPOSO |
-| 3 | MARCHA y luego `MOT1_Termico_NC = 0` | OFF, piloto falla | FALLA (90) | FALLA (90) |
-| 4 | `MOT1_Termico_NC = 1` y MARCHA | **vuelve a arrancar** | sigue en FALLA | sigue en FALLA |
+| 3 | MARCHA y luego `MOT1_Termico_Falla = 1` | OFF, piloto falla | FALLA (90) | FALLA (90) |
+| 4 | `MOT1_Termico_Falla = 0` y MARCHA | **vuelve a arrancar** | sigue en FALLA | sigue en FALLA |
 | 5 | RESET (o MARCHA 3 s) y luego MARCHA | — | REPOSO → MARCHA | REPOSO → MARCHA |
 | 6 | Cambiar el selector de estilo en marcha | KM1 lo maneja el nuevo estilo | | |
 

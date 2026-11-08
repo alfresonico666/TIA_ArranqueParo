@@ -24,10 +24,10 @@ TABLAS_TAGS = {
     "Pulsadores_y_selectores": [
         # Memorias (%M) para simular sin PLC ni sensores físicos
         {"nombre": "PB_Marcha", "direccion": "%M10.0", "comentario": "Pulsador MARCHA verde (NA)"},
-        {"nombre": "PB_Paro_NC", "direccion": "%M10.1", "comentario": "Pulsador PARO rojo (NC): 1 = no pulsado"},
+        {"nombre": "PB_Paro", "direccion": "%M10.1", "comentario": "Pulsador PARO rojo: 1 = pulsado"},
     ],
     "Motores": [
-        {"nombre": "MOT1_Termico_NC", "direccion": "%M10.2", "comentario": "Relé térmico M1 95-96 (NC): 1 = sin falla"},
+        {"nombre": "MOT1_Termico_Falla", "direccion": "%M10.2", "comentario": "Relé térmico M1: 1 = disparado"},
         {"nombre": "KM1_Motor", "direccion": "%M10.3", "comentario": "Contactor KM1 del motor M1"},
     ],
     "Pilotos": [
@@ -72,8 +72,8 @@ FB_MANDO = {
     "comentario": "Une pulsadores físicos y botones HMI. Reset = botón RESET de la HMI o mantener MARCHA 3 s.",
     "interfaz": {
         "Input": [{"nombre": "PB_Marcha", "comentario": "Pulsador MARCHA (NA)"},
-                  {"nombre": "PB_Paro_NC", "comentario": "Pulsador PARO (NC)"},
-                  {"nombre": "Termico_NC", "comentario": "Relé térmico (NC)"},
+                  {"nombre": "PB_Paro", "comentario": "Pulsador PARO: 1 = pulsado"},
+                  {"nombre": "Termico_Falla", "comentario": "Relé térmico: 1 = disparado"},
                   {"nombre": "HMI_Marcha"}, {"nombre": "HMI_Paro"}, {"nombre": "HMI_Reset"}],
         "Output": [{"nombre": "Marcha"}, {"nombre": "Paro"}, {"nombre": "Termico_OK"}, {"nombre": "Reset"}],
         "Static": [{"nombre": "T_Reset", "tipo": "TON_TIME", "comentario": "Tiempo de MARCHA mantenida"},
@@ -83,11 +83,11 @@ FB_MANDO = {
         {"titulo": "Marcha", "comentario": "Pulsador físico o botón de la HMI.",
          "logica": [{"paralelo": [{"contacto": "#PB_Marcha"}, {"contacto": "#HMI_Marcha"}]},
                     {"bobina": "#Marcha"}]},
-        {"titulo": "Paro", "comentario": "Paro NC (0 = pulsado o cable cortado) o botón PARO de la HMI.",
-         "logica": [{"paralelo": [{"contacto": "#PB_Paro_NC", "negado": True}, {"contacto": "#HMI_Paro"}]},
+        {"titulo": "Paro", "comentario": "Pulsador PARO o botón PARO de la HMI.",
+         "logica": [{"paralelo": [{"contacto": "#PB_Paro"}, {"contacto": "#HMI_Paro"}]},
                     {"bobina": "#Paro"}]},
-        {"titulo": "Térmico", "comentario": "Contacto NC del relé térmico: 1 = sin falla.",
-         "logica": [{"contacto": "#Termico_NC"}, {"bobina": "#Termico_OK"}]},
+        {"titulo": "Térmico", "comentario": "Térmico OK mientras no esté disparado.",
+         "logica": [{"contacto": "#Termico_Falla", "negado": True}, {"bobina": "#Termico_OK"}]},
         {"titulo": "MARCHA mantenida 3 s", "comentario": "Patrón de reset probado: mantener el pulsador 3 s.",
          "logica": [{"contacto": "#PB_Marcha"},
                     {"caja": "TON", "instancia": "#T_Reset", "entradas": {"PT": "T#3s"}},
@@ -191,7 +191,7 @@ MAIN = {
     "redes": [
         {"titulo": "MANDO: pulsadores + HMI", "comentario": "Une entradas físicas y botones de la HMI.",
          "logica": {"llamar": "FB_Mando_Motor", "instancia": "DB_Mando", "parametros": {
-             "PB_Marcha": '"PB_Marcha"', "PB_Paro_NC": '"PB_Paro_NC"', "Termico_NC": '"MOT1_Termico_NC"',
+             "PB_Marcha": '"PB_Marcha"', "PB_Paro": '"PB_Paro"', "Termico_Falla": '"MOT1_Termico_Falla"',
              "HMI_Marcha": '"DB_HMI".Cmd_Marcha', "HMI_Paro": '"DB_HMI".Cmd_Paro',
              "HMI_Reset": '"DB_HMI".Cmd_Reset'}}},
         {"titulo": "ESTILO 1: BANDERAS (S/R)", "logica": _llamada_estilo("FB_Motor_Banderas", "DB_Motor_Banderas")},
@@ -203,7 +203,7 @@ MAIN = {
         {"titulo": "SALIDA: piloto de falla", "logica": [_por_estilo("Piloto_Falla"), {"bobina": '"HL_Falla"'}]},
         {"titulo": "HMI: motor en marcha", "logica": [{"contacto": '"KM1_Motor"'},
                                                       {"bobina": '"DB_HMI".Motor_En_Marcha'}]},
-        {"titulo": "HMI: falla térmico", "logica": [{"contacto": '"MOT1_Termico_NC"', "negado": True},
+        {"titulo": "HMI: falla térmico", "logica": [{"contacto": '"MOT1_Termico_Falla"'},
                                                     {"bobina": '"DB_HMI".Falla_Termico'}]},
         *[{"titulo": f"HMI: estado del estilo {n}",
            "logica": [{"comparar": ['"DB_HMI".Sel_Estilo', "==", str(n)], "tipo": "Int"},
@@ -220,8 +220,8 @@ TAGS_HMI = [
     ("Cmd_Reset", "Bool", "DB_HMI.Cmd_Reset"), ("Sel_Estilo", "Int", "DB_HMI.Sel_Estilo"),
     ("Estado", "Int", "DB_HMI.Estado"), ("Motor_En_Marcha", "Bool", "DB_HMI.Motor_En_Marcha"),
     ("Falla_Termico", "Bool", "DB_HMI.Falla_Termico"), ("Pantalla", "Int", "DB_HMI.Pantalla"),
-    ("PB_Marcha", "Bool", "PB_Marcha"), ("PB_Paro_NC", "Bool", "PB_Paro_NC"),
-    ("MOT1_Termico_NC", "Bool", "MOT1_Termico_NC"), ("KM1_Motor", "Bool", "KM1_Motor"),
+    ("PB_Marcha", "Bool", "PB_Marcha"), ("PB_Paro", "Bool", "PB_Paro"),
+    ("MOT1_Termico_Falla", "Bool", "MOT1_Termico_Falla"), ("KM1_Motor", "Bool", "KM1_Motor"),
     ("HL_Marcha", "Bool", "HL_Marcha"), ("HL_Falla", "Bool", "HL_Falla"),
     ("Banderas_Estado", "Int", "DB_Motor_Banderas.Estado"), ("Banderas_Motor", "Bool", "DB_Motor_Banderas.Motor"),
     ("Moore_Estado", "Int", "DB_Motor_Moore.Estado"), ("Moore_Motor", "Bool", "DB_Motor_Moore.Motor"),
@@ -277,7 +277,7 @@ def _etiqueta(nombre, x, y, ancho, texto, tamano=13, color=TEXTO_OSCURO, estilo=
 def _piloto_rect(nombre, x, y, tag, color_on, ancho=44, alto=26):
     return {"tipo": "rectangulo", "nombre": nombre, "x": x, "y": y, "ancho": ancho, "alto": alto,
             "fondo": APAGADO, "borde": BORDE, "grosor_borde": 1,
-            "apariencia": {"tag": tag, "rangos": [[0, ROJO if color_on == VERDE else APAGADO], [1, color_on]]}}
+            "apariencia": {"tag": tag, "rangos": [[0, APAGADO], [1, color_on]]}}
 
 
 def _boton_momentaneo(nombre, x, texto, tag, fondo, color):
@@ -324,17 +324,19 @@ PANTALLA_PRINCIPAL = {
         _boton_momentaneo("Btn_Reset", 363, "RESET", "Cmd_Reset", AMARILLO, GRIS_OSCURO),
     ]}
 
-_FILAS_IO = [("PB_Marcha", "M10.0", "Pulsador MARCHA"), ("PB_Paro_NC", "M10.1", "Pulsador PARO (NC)"),
-             ("MOT1_Termico_NC", "M10.2", "Térmico M1 (NC)"), ("KM1_Motor", "M10.3", "Contactor KM1"),
-             ("HL_Marcha", "M10.4", "Piloto marcha"), ("HL_Falla", "M10.5", "Piloto falla")]
+# (tag, dirección, texto, color cuando vale 1)
+_FILAS_IO = [("PB_Marcha", "M10.0", "Pulsador MARCHA", VERDE), ("PB_Paro", "M10.1", "Pulsador PARO", ROJO),
+             ("MOT1_Termico_Falla", "M10.2", "Térmico M1 disparado", ROJO),
+             ("KM1_Motor", "M10.3", "Contactor KM1", VERDE), ("HL_Marcha", "M10.4", "Piloto marcha", VERDE),
+             ("HL_Falla", "M10.5", "Piloto falla", ROJO)]
 
 PANTALLA_DIAGNOSTICO = {
     "nombre": "Diagnostico", "numero": 2, "fondo": NEGRO, "objetos": [
         *_marco("DIAGNÓSTICO E/S"), *_navegacion("Diagnostico"),
-        *[obj for i, (tag, direccion, texto) in enumerate(_FILAS_IO) for obj in (
+        *[obj for i, (tag, direccion, texto, color) in enumerate(_FILAS_IO) for obj in (
             _etiqueta(f"Txt_{tag}", 137, 52 + 35 * i, 70, direccion, 14),
             _etiqueta(f"Des_{tag}", 200, 52 + 35 * i, 210, f"• {texto}", 14),
-            _piloto_rect(f"Ind_{tag}", 420, 50 + 35 * i, tag, VERDE),
+            _piloto_rect(f"Ind_{tag}", 420, 50 + 35 * i, tag, color),
         )],
     ]}
 

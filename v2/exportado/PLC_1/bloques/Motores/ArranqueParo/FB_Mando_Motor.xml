@@ -2,7 +2,7 @@
 <Document>
   <Engineering version="V17" />
   <DocumentInfo>
-    <Created>2026-11-08T05:33:48.2406398Z</Created>
+    <Created>2026-11-08T05:39:56.2042854Z</Created>
     <ExportSetting>WithDefaults</ExportSetting>
     <InstalledProducts>
       <Product>
@@ -41,8 +41,8 @@
       <Interface><Sections xmlns="http://www.siemens.com/automation/Openness/SW/Interface/v5">
   <Section Name="Input">
     <Member Name="PB_Marcha" Datatype="Bool" Remanence="NonRetain" Accessibility="Public"><AttributeList><BooleanAttribute Name="ExternalAccessible" SystemDefined="true">true</BooleanAttribute><BooleanAttribute Name="ExternalVisible" SystemDefined="true">true</BooleanAttribute><BooleanAttribute Name="ExternalWritable" SystemDefined="true">true</BooleanAttribute></AttributeList><Comment><MultiLanguageText Lang="es-MX">Pulsador MARCHA (NA)</MultiLanguageText></Comment></Member>
-    <Member Name="PB_Paro_NC" Datatype="Bool" Remanence="NonRetain" Accessibility="Public"><AttributeList><BooleanAttribute Name="ExternalAccessible" SystemDefined="true">true</BooleanAttribute><BooleanAttribute Name="ExternalVisible" SystemDefined="true">true</BooleanAttribute><BooleanAttribute Name="ExternalWritable" SystemDefined="true">true</BooleanAttribute></AttributeList><Comment><MultiLanguageText Lang="es-MX">Pulsador PARO (NC)</MultiLanguageText></Comment></Member>
-    <Member Name="Termico_NC" Datatype="Bool" Remanence="NonRetain" Accessibility="Public"><AttributeList><BooleanAttribute Name="ExternalAccessible" SystemDefined="true">true</BooleanAttribute><BooleanAttribute Name="ExternalVisible" SystemDefined="true">true</BooleanAttribute><BooleanAttribute Name="ExternalWritable" SystemDefined="true">true</BooleanAttribute></AttributeList><Comment><MultiLanguageText Lang="es-MX">Relé térmico (NC)</MultiLanguageText></Comment></Member>
+    <Member Name="PB_Paro" Datatype="Bool" Remanence="NonRetain" Accessibility="Public"><AttributeList><BooleanAttribute Name="ExternalAccessible" SystemDefined="true">true</BooleanAttribute><BooleanAttribute Name="ExternalVisible" SystemDefined="true">true</BooleanAttribute><BooleanAttribute Name="ExternalWritable" SystemDefined="true">true</BooleanAttribute></AttributeList><Comment><MultiLanguageText Lang="es-MX">Pulsador PARO: 1 = pulsado</MultiLanguageText></Comment></Member>
+    <Member Name="Termico_Falla" Datatype="Bool" Remanence="NonRetain" Accessibility="Public"><AttributeList><BooleanAttribute Name="ExternalAccessible" SystemDefined="true">true</BooleanAttribute><BooleanAttribute Name="ExternalVisible" SystemDefined="true">true</BooleanAttribute><BooleanAttribute Name="ExternalWritable" SystemDefined="true">true</BooleanAttribute></AttributeList><Comment><MultiLanguageText Lang="es-MX">Relé térmico: 1 = disparado</MultiLanguageText></Comment></Member>
     <Member Name="HMI_Marcha" Datatype="Bool" Remanence="NonRetain" Accessibility="Public"><AttributeList><BooleanAttribute Name="ExternalAccessible" SystemDefined="true">true</BooleanAttribute><BooleanAttribute Name="ExternalVisible" SystemDefined="true">true</BooleanAttribute><BooleanAttribute Name="ExternalWritable" SystemDefined="true">true</BooleanAttribute></AttributeList></Member>
     <Member Name="HMI_Paro" Datatype="Bool" Remanence="NonRetain" Accessibility="Public"><AttributeList><BooleanAttribute Name="ExternalAccessible" SystemDefined="true">true</BooleanAttribute><BooleanAttribute Name="ExternalVisible" SystemDefined="true">true</BooleanAttribute><BooleanAttribute Name="ExternalWritable" SystemDefined="true">true</BooleanAttribute></AttributeList></Member>
     <Member Name="HMI_Reset" Datatype="Bool" Remanence="NonRetain" Accessibility="Public"><AttributeList><BooleanAttribute Name="ExternalAccessible" SystemDefined="true">true</BooleanAttribute><BooleanAttribute Name="ExternalVisible" SystemDefined="true">true</BooleanAttribute><BooleanAttribute Name="ExternalWritable" SystemDefined="true">true</BooleanAttribute></AttributeList></Member>
@@ -66,7 +66,7 @@
       <MemoryLayout>Optimized</MemoryLayout>
       <MemoryReserve>100</MemoryReserve>
       <Name>FB_Mando_Motor</Name>
-      <Number>2</Number>
+      <Number>1</Number>
       <ProgrammingLanguage>LAD</ProgrammingLanguage>
       <SetENOAutomatically>false</SetENOAutomatically>
       <UDABlockProperties />
@@ -190,7 +190,7 @@
   <Parts>
     <Access Scope="LocalVariable" UId="21">
       <Symbol>
-        <Component Name="PB_Paro_NC" />
+        <Component Name="PB_Paro" />
       </Symbol>
     </Access>
     <Access Scope="LocalVariable" UId="22">
@@ -203,9 +203,7 @@
         <Component Name="Paro" />
       </Symbol>
     </Access>
-    <Part Name="Contact" UId="24">
-      <Negated Name="operand" />
-    </Part>
+    <Part Name="Contact" UId="24" />
     <Part Name="Contact" UId="25" />
     <Part Name="O" UId="26">
       <TemplateValue Name="Card" Type="Cardinality">2</TemplateValue>
@@ -258,7 +256,7 @@
               <MultilingualTextItem ID="E" CompositionName="Items">
                 <AttributeList>
                   <Culture>es-MX</Culture>
-                  <Text>Paro NC (0 = pulsado o cable cortado) o botón PARO de la HMI.</Text>
+                  <Text>Pulsador PARO o botón PARO de la HMI.</Text>
                 </AttributeList>
               </MultilingualTextItem>
             </ObjectList>
@@ -287,7 +285,7 @@
   <Parts>
     <Access Scope="LocalVariable" UId="21">
       <Symbol>
-        <Component Name="Termico_NC" />
+        <Component Name="Termico_Falla" />
       </Symbol>
     </Access>
     <Access Scope="LocalVariable" UId="22">
@@ -295,7 +293,9 @@
         <Component Name="Termico_OK" />
       </Symbol>
     </Access>
-    <Part Name="Contact" UId="23" />
+    <Part Name="Contact" UId="23">
+      <Negated Name="operand" />
+    </Part>
     <Part Name="Coil" UId="24" />
   </Parts>
   <Wires>
@@ -331,7 +331,7 @@
               <MultilingualTextItem ID="15" CompositionName="Items">
                 <AttributeList>
                   <Culture>es-MX</Culture>
-                  <Text>Contacto NC del relé térmico: 1 = sin falla.</Text>
+                  <Text>Térmico OK mientras no esté disparado.</Text>
                 </AttributeList>
               </MultilingualTextItem>
             </ObjectList>

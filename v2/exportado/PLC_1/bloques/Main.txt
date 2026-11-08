@@ -5,7 +5,7 @@ Interfaz:
     Initial_Call : Bool  // Initial call of this OB
     Remanence : Bool  // =True, if remanent data are available
 Red 1: MANDO: pulsadores + HMI  // Une entradas físicas y botones de la HMI.
-  CALL "FB_Mando_Motor" ("DB_Mando")(en:=1, PB_Marcha:="PB_Marcha", PB_Paro_NC:="PB_Paro_NC", Termico_NC:="MOT1_Termico_NC", HMI_Marcha:="DB_HMI".Cmd_Marcha, HMI_Paro:="DB_HMI".Cmd_Paro, HMI_Reset:="DB_HMI".Cmd_Reset)
+  CALL "FB_Mando_Motor" ("DB_Mando")(en:=1, PB_Marcha:="PB_Marcha", PB_Paro:="PB_Paro", Termico_Falla:="MOT1_Termico_Falla", HMI_Marcha:="DB_HMI".Cmd_Marcha, HMI_Paro:="DB_HMI".Cmd_Paro, HMI_Reset:="DB_HMI".Cmd_Reset)
 Red 2: ESTILO 1: BANDERAS (S/R)
   CALL "FB_Motor_Banderas" ("DB_Motor_Banderas")(en:=1, Marcha:="DB_Mando".Marcha, Paro:="DB_Mando".Paro, Termico_OK:="DB_Mando".Termico_OK, Reset:="DB_Mando".Reset)
 Red 3: ESTILO 2: MOORE (estados, KOP)
@@ -21,7 +21,7 @@ Red 7: SALIDA: piloto de falla
 Red 8: HMI: motor en marcha
   "DB_HMI".Motor_En_Marcha := "KM1_Motor"
 Red 9: HMI: falla térmico
-  "DB_HMI".Falla_Termico := NOT "MOT1_Termico_NC"
+  "DB_HMI".Falla_Termico := "MOT1_Termico_Falla"
 Red 10: HMI: estado del estilo 1
   Move(en:="DB_HMI".Sel_Estilo == 1, in:="DB_Motor_Banderas".Estado, out1=>"DB_HMI".Estado)
 Red 11: HMI: estado del estilo 2
