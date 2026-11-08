@@ -1,0 +1,34 @@
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Entornos y configuraciones locales
+.env
+.env.*
+
+# Temporales
+*.tmp
+*.log
+.DS_Store
+
+# Configuración local de VS Code
+.vscode/
+# TIA Portal: el proyecto se regenera con los scripts; las entregas van al GitHub Release
+tia_proyecto/
+entregas/
+*.ap17
+*.zap17
+*.ap16
+*.zap16
+# Archivos temporales de TIA
+**/IM/
+**/System/
+**/TMP/
+**/Logs/
+*.plf
+# Documentos de referencia y copias de clientes (no se suben)
+_referencias/
+_copias/
+*.pdf
