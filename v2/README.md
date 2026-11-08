@@ -29,14 +29,16 @@ Los tres estilos corren **a la vez** con las mismas entradas: en la pantalla *Es
 cada uno, y el selector decide cuál maneja el contactor real.
 
 ### Tablas de tags (estándar del MCP)
+> Por ahora todos los tags son **memorias %M** (no hay PLC ni sensores físicos): se simulan escribiéndolas en una tabla de observación.
+
 | Tabla | Tag | Dirección | Descripción |
 |---|---|---|---|
-| Pulsadores_y_selectores | `PB_Marcha` | %I0.0 | Pulsador MARCHA (NA) |
-| Pulsadores_y_selectores | `PB_Paro_NC` | %I0.1 | Pulsador PARO (**NC**, 1 = no pulsado) |
-| Motores | `MOT1_Termico_NC` | %I0.2 | Relé térmico 95-96 (**NC**, 1 = sin falla) |
-| Motores | `KM1_Motor` | %Q0.0 | Contactor KM1 |
-| Pilotos | `HL_Marcha` | %Q0.1 | Piloto verde |
-| Pilotos | `HL_Falla` | %Q0.2 | Piloto rojo |
+| Pulsadores_y_selectores | `PB_Marcha` | %M10.0 | Pulsador MARCHA (NA) |
+| Pulsadores_y_selectores | `PB_Paro_NC` | %M10.1 | Pulsador PARO (**NC**, 1 = no pulsado) |
+| Motores | `MOT1_Termico_NC` | %M10.2 | Relé térmico 95-96 (**NC**, 1 = sin falla) |
+| Motores | `KM1_Motor` | %M10.3 | Contactor KM1 |
+| Pilotos | `HL_Marcha` | %M10.4 | Piloto verde |
+| Pilotos | `HL_Falla` | %M10.5 | Piloto rojo |
 
 `DB_HMI`: Cmd_Marcha, Cmd_Paro, Cmd_Reset (botones momentáneos), Sel_Estilo (1/2/3), Estado, Motor_En_Marcha,
 Falla_Termico, Pantalla. La HMI **nunca escribe salidas físicas**: solo comandos en el DB, y el PLC decide.

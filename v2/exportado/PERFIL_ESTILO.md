@@ -18,7 +18,7 @@ Generado automáticamente por TIA_MCP_V17. Úsalo como guía para programar igua
 - Interfaz Static: prefijos Cmd_ (21 %), B_ (14 %); ej.: Cmd_Marcha, Cmd_Paro, Cmd_Reset, Sel_Estilo, Estado, Motor_En_Marcha
 - Interfaz Temp: prefijos sin prefijo fijo; ej.: Estado_Previo, Estado_Previo
 - Tags: 6, con comentario 100 %; prefijos PB_ (33 %), HL_ (33 %)
-  ej.: PB_Marcha %I0.0, PB_Paro_NC %I0.1, MOT1_Termico_NC %I0.2, KM1_Motor %Q0.0, HL_Marcha %Q0.1, HL_Falla %Q0.2
+  ej.: PB_Marcha %M10.0, PB_Paro_NC %M10.1, MOT1_Termico_NC %M10.2, KM1_Motor %M10.3, HL_Marcha %M10.4, HL_Falla %M10.5
 
 ## Instrucciones más usadas
 - Contact (40), Eq (20), Move (18), Coil (17), Call FB_Mando_Motor (6), Call FB_Motor_Banderas (4), Call FB_Motor_Moore (4), Call FB_Motor_Mealy (4), SCoil (1), RCoil (1)

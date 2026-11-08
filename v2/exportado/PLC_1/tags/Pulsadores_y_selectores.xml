@@ -2,7 +2,7 @@
 <Document>
   <Engineering version="V17" />
   <DocumentInfo>
-    <Created>2026-11-08T05:25:55.3526024Z</Created>
+    <Created>2026-11-08T05:33:48.400256Z</Created>
     <ExportSetting>WithDefaults</ExportSetting>
     <InstalledProducts>
       <Product>
@@ -42,7 +42,7 @@
           <ExternalAccessible>true</ExternalAccessible>
           <ExternalVisible>true</ExternalVisible>
           <ExternalWritable>true</ExternalWritable>
-          <LogicalAddress>%I0.0</LogicalAddress>
+          <LogicalAddress>%M10.0</LogicalAddress>
           <Name>PB_Marcha</Name>
         </AttributeList>
         <ObjectList>
@@ -70,7 +70,7 @@
           <ExternalAccessible>true</ExternalAccessible>
           <ExternalVisible>true</ExternalVisible>
           <ExternalWritable>true</ExternalWritable>
-          <LogicalAddress>%I0.1</LogicalAddress>
+          <LogicalAddress>%M10.1</LogicalAddress>
           <Name>PB_Paro_NC</Name>
         </AttributeList>
         <ObjectList>

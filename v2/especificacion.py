@@ -22,16 +22,17 @@ CARPETA_BLOQUES = "Motores/ArranqueParo"
 # --------------------------------------------------------------------------- tablas de tags (estándar)
 TABLAS_TAGS = {
     "Pulsadores_y_selectores": [
-        {"nombre": "PB_Marcha", "direccion": "%I0.0", "comentario": "Pulsador MARCHA verde (NA)"},
-        {"nombre": "PB_Paro_NC", "direccion": "%I0.1", "comentario": "Pulsador PARO rojo (NC): 1 = no pulsado"},
+        # Memorias (%M) para simular sin PLC ni sensores físicos
+        {"nombre": "PB_Marcha", "direccion": "%M10.0", "comentario": "Pulsador MARCHA verde (NA)"},
+        {"nombre": "PB_Paro_NC", "direccion": "%M10.1", "comentario": "Pulsador PARO rojo (NC): 1 = no pulsado"},
     ],
     "Motores": [
-        {"nombre": "MOT1_Termico_NC", "direccion": "%I0.2", "comentario": "Relé térmico M1 95-96 (NC): 1 = sin falla"},
-        {"nombre": "KM1_Motor", "direccion": "%Q0.0", "comentario": "Contactor KM1 del motor M1"},
+        {"nombre": "MOT1_Termico_NC", "direccion": "%M10.2", "comentario": "Relé térmico M1 95-96 (NC): 1 = sin falla"},
+        {"nombre": "KM1_Motor", "direccion": "%M10.3", "comentario": "Contactor KM1 del motor M1"},
     ],
     "Pilotos": [
-        {"nombre": "HL_Marcha", "direccion": "%Q0.1", "comentario": "Piloto verde: motor en marcha"},
-        {"nombre": "HL_Falla", "direccion": "%Q0.2", "comentario": "Piloto rojo: falla térmico"},
+        {"nombre": "HL_Marcha", "direccion": "%M10.4", "comentario": "Piloto verde: motor en marcha"},
+        {"nombre": "HL_Falla", "direccion": "%M10.5", "comentario": "Piloto rojo: falla térmico"},
     ],
 }
 
@@ -307,7 +308,7 @@ PANTALLA_PRINCIPAL = {
          "borde": BORDE, "grosor_borde": 2,
          "apariencia": {"tag": "Motor_En_Marcha", "rangos": [[0, GRIS_OSCURO], [1, VERDE]]}},
         _etiqueta("Txt_Motor", 137, 166, 90, "MOTOR M1", 12),
-        _etiqueta("Txt_KM1", 137, 184, 90, "KM1 · Q0.0", 11, TEXTO_OSCURO, "Regular", 20),
+        _etiqueta("Txt_KM1", 137, 184, 90, "KM1 · M10.3", 11, TEXTO_OSCURO, "Regular", 20),
         # Selector de estilo y estado
         _etiqueta("Txt_Estilo", 240, 96, 80, "Estilo:", 14),
         {"tipo": "campo_simbolico", "nombre": "Sel_Estilo", "tag": "Sel_Estilo", "lista": "Estilos",
@@ -323,9 +324,9 @@ PANTALLA_PRINCIPAL = {
         _boton_momentaneo("Btn_Reset", 363, "RESET", "Cmd_Reset", AMARILLO, GRIS_OSCURO),
     ]}
 
-_FILAS_IO = [("PB_Marcha", "I0.0", "Pulsador MARCHA"), ("PB_Paro_NC", "I0.1", "Pulsador PARO (NC)"),
-             ("MOT1_Termico_NC", "I0.2", "Térmico M1 (NC)"), ("KM1_Motor", "Q0.0", "Contactor KM1"),
-             ("HL_Marcha", "Q0.1", "Piloto marcha"), ("HL_Falla", "Q0.2", "Piloto falla")]
+_FILAS_IO = [("PB_Marcha", "M10.0", "Pulsador MARCHA"), ("PB_Paro_NC", "M10.1", "Pulsador PARO (NC)"),
+             ("MOT1_Termico_NC", "M10.2", "Térmico M1 (NC)"), ("KM1_Motor", "M10.3", "Contactor KM1"),
+             ("HL_Marcha", "M10.4", "Piloto marcha"), ("HL_Falla", "M10.5", "Piloto falla")]
 
 PANTALLA_DIAGNOSTICO = {
     "nombre": "Diagnostico", "numero": 2, "fondo": NEGRO, "objetos": [

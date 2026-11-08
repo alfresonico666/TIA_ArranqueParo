@@ -64,5 +64,6 @@ cd C:\Users\LEGION\Proyectos\TIA_ArranqueParo
 | v1_ClaudeTIA_ArranqueParo | Arranque y paro con retención en KOP generado por XML + Openness (scripts propios) |
 | v2_ArranqueParoHMIEstilos | PLC + HMI KTP400 generados con el MCP: tablas de tags estándar, DB_HMI, mando pulsadores+HMI, 3 estilos (Banderas KOP, Moore KOP, Mealy SCL) y 3 pantallas. Ver [v2/README.md](v2/README.md) |
 | v3_ArranqueParoHMIEnlazada | Conexión HMI integrada + 20 tags HMI enlazados al PLC en vivo (`v2/enlazar_en_vivo.py`): PLC y HMI con **0 errores**, listo para PLCSIM |
+| v4_ArranqueParoTagsMemorias | Los 6 tags (pulsadores, térmico, KM1, pilotos) pasan a memorias %M10.0–%M10.5 para simular sin PLC físico. PLC y HMI 0 errores |
 
 Para saber cómo trabajamos (plantillas, referencias, copias, versiones), consulta [docs/COMO_TRABAJAMOS.md](docs/COMO_TRABAJAMOS.md).
