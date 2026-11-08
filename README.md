@@ -2,7 +2,7 @@
 
 Arranque y paro de un motor generado de forma automática en **TIA Portal V17** con **Claude Code + TIA Openness**, sin costo adicional.
 
-> **Versión actual: [v2 — PLC + HMI KTP400 + 3 estilos (Banderas / Moore / Mealy)](v2/README.md)**, generada con el MCP [TIA_MCP_V17](https://github.com/alfresonico666/TIA_MCP_V17).
+> **Versión actual: [v2 — PLC + HMI KTP700 + 3 estilos (Banderas / Moore / Mealy)](v2/README.md)**, generada con el MCP [TIA_MCP_V17](https://github.com/alfresonico666/TIA_MCP_V17).
 >
 > | Principal | Diagnóstico | Estilos |
 > |---|---|---|
@@ -66,5 +66,6 @@ cd C:\Users\LEGION\Proyectos\TIA_ArranqueParo
 | v3_ArranqueParoHMIEnlazada | Conexión HMI integrada + 20 tags HMI enlazados al PLC en vivo (`v2/enlazar_en_vivo.py`): PLC y HMI con **0 errores**, listo para PLCSIM |
 | v4_ArranqueParoTagsMemorias | Los 6 tags (pulsadores, térmico, KM1, pilotos) pasan a memorias %M10.0–%M10.5 para simular sin PLC físico. PLC y HMI 0 errores |
 | v5_ArranqueParoSinFallaAlArrancar | Paro y térmico como memorias normales (0 = reposo): `PB_Paro` y `MOT1_Termico_Falla`. Ya no arranca en FALLA; LED verde de motor, PARO detiene, RESET limpia la falla. PLC y HMI 0 errores |
+| v6_ArranqueParoHMIKtp700 | Panel cambiado a KTP700 (800×480) y HMI rediseñada en el mismo estilo: cabecera con fecha/hora, tarjetas, LED grande del motor con aro, señales, pilotos y botones de mando grandes. HMI 0 errores |
 
 Para saber cómo trabajamos (plantillas, referencias, copias, versiones), consulta [docs/COMO_TRABAJAMOS.md](docs/COMO_TRABAJAMOS.md).

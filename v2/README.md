@@ -1,4 +1,4 @@
-# Arranque y paro v2: PLC + HMI KTP400 + 3 estilos de programación
+# Arranque y paro v2: PLC + HMI KTP700 + 3 estilos de programación
 
 Proyecto **generado automáticamente** con el MCP [TIA_MCP_V17](https://github.com/alfresonico666/TIA_MCP_V17) (v3).
 Toda la especificación está en [`especificacion.py`](especificacion.py) y el generador en [`generar_v2.py`](generar_v2.py).
@@ -6,7 +6,7 @@ Toda la especificación está en [`especificacion.py`](especificacion.py) y el g
 | | |
 |---|---|
 | PLC | S7-1214C AC/DC/RLY `6ES7 214-1BG40-0XB0` V4.5, IP 192.168.0.1 |
-| HMI | KTP400 Basic PN `6AV2 123-2DB03-0AX0`, imagen V17, IP 192.168.0.2 |
+| HMI | KTP700 Basic PN `6AV2 123-2GB03-0AX0` (800×480), imagen V17, IP 192.168.0.2 |
 | Red | PN/IE_1 · conexión HMI `HMI_Connection_1` (se crea a mano, ver abajo) |
 | Idiomas | es-MX (edición) + en-US |
 | Resultado | PLC **0 errores** · HMI **0 errores** (tags HMI enlazados al PLC por `HMI_Connection_1`) |
@@ -69,7 +69,7 @@ Salidas: MARCHA (10) → Motor, Piloto_Marcha · FALLA (90) → Piloto_Falla.
 Los mismos estados y transiciones. Diferencia: en MARCHA, **Motor = NOT Paro Y Termico_OK**. Es decir, la salida
 mira las entradas y no espera al cambio de estado.
 
-## HMI (KTP400, 480×272)
+## HMI (KTP700, 800×480)
 Aspecto: fondo negro, botón de navegación activo amarillo, inactivos gris oscuro, panel claro y Tahoma.
 Estructura: columna de navegación a la izquierda, contenido a la derecha y fecha/hora abajo a la izquierda.
 
