@@ -1,11 +1,15 @@
 """
 Programa: Arranque y paro de un motor con retención (enclavamiento).
 
-Cableado (S7-1214C DC/DC/DC):
+Cableado (S7-1214C AC/DC/RLY, 6ES7 214-1BG40-0XB0):
     I0.0  Marcha       Pulsador de marcha, contacto NA (verde)
     I0.1  Paro_NC      Pulsador de paro, contacto NC (rojo)
     I0.2  Termico_NC   Contacto auxiliar NC del relé térmico (95-96)
     Q0.0  Motor        Bobina del contactor KM1
+
+Alimentación 120/230 VAC (L1/N). Entradas 24 VDC: se pueden alimentar con la
+salida de sensores L+/M de la propia CPU (unir 1M con M). Salidas a relé: Q0.0
+conmuta la bobina de KM1 a la tensión que se cablee en 1L (24 VDC o hasta 230 VAC).
 
 Los dispositivos de seguridad (paro y térmico) se cablean NC: si un cable se
 corta, la entrada cae a 0 y el motor se detiene (falla segura). Por eso en el

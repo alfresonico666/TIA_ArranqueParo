@@ -23,7 +23,7 @@ DIR_TIA = RAIZ / "tia_proyecto"
 DIR_ENTREGAS = RAIZ / "entregas"
 NOMBRE_PROYECTO = "ArranqueParo"
 PLC = "PLC_1"
-CPU = "6ES7 214-1AG40-0XB0/V4.5"   # S7-1214C DC/DC/DC, firmware V4.5
+CPU = "6ES7 214-1BG40-0XB0/V4.5"   # S7-1214C AC/DC/RLY, firmware V4.5
 
 
 def generar_xml(cultura: str, ns_interfaz: str) -> tuple[Path, Path]:
