@@ -1,0 +1,574 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Document>
+  <Engineering version="V17" />
+  <DocumentInfo>
+    <Created>2026-11-08T05:02:07.6438042Z</Created>
+    <ExportSetting>WithDefaults</ExportSetting>
+    <InstalledProducts>
+      <Product>
+        <DisplayName>Totally Integrated Automation Portal</DisplayName>
+        <DisplayVersion>V17</DisplayVersion>
+      </Product>
+      <OptionPackage>
+        <DisplayName>TIA Portal Openness</DisplayName>
+        <DisplayVersion>V17</DisplayVersion>
+      </OptionPackage>
+      <OptionPackage>
+        <DisplayName>TIA Portal Version Control Interface</DisplayName>
+        <DisplayVersion>V17</DisplayVersion>
+      </OptionPackage>
+      <Product>
+        <DisplayName>STEP 7 Professional</DisplayName>
+        <DisplayVersion>V17</DisplayVersion>
+      </Product>
+      <OptionPackage>
+        <DisplayName>STEP 7 Safety</DisplayName>
+        <DisplayVersion>V17</DisplayVersion>
+      </OptionPackage>
+      <Product>
+        <DisplayName>WinCC Professional</DisplayName>
+        <DisplayVersion>V17</DisplayVersion>
+      </Product>
+    </InstalledProducts>
+  </DocumentInfo>
+  <SW.Blocks.FB ID="0">
+    <AttributeList>
+      <AutoNumber>true</AutoNumber>
+      <HeaderAuthor />
+      <HeaderFamily />
+      <HeaderName />
+      <HeaderVersion>0.1</HeaderVersion>
+      <Interface><Sections xmlns="http://www.siemens.com/automation/Openness/SW/Interface/v5">
+  <Section Name="Input">
+    <Member Name="Marcha" Datatype="Bool" Remanence="NonRetain" Accessibility="Public"><AttributeList><BooleanAttribute Name="ExternalAccessible" SystemDefined="true">true</BooleanAttribute><BooleanAttribute Name="ExternalVisible" SystemDefined="true">true</BooleanAttribute><BooleanAttribute Name="ExternalWritable" SystemDefined="true">true</BooleanAttribute></AttributeList><Comment><MultiLanguageText Lang="es-MX">Orden de marcha (pulsador o HMI)</MultiLanguageText></Comment></Member>
+    <Member Name="Paro" Datatype="Bool" Remanence="NonRetain" Accessibility="Public"><AttributeList><BooleanAttribute Name="ExternalAccessible" SystemDefined="true">true</BooleanAttribute><BooleanAttribute Name="ExternalVisible" SystemDefined="true">true</BooleanAttribute><BooleanAttribute Name="ExternalWritable" SystemDefined="true">true</BooleanAttribute></AttributeList><Comment><MultiLanguageText Lang="es-MX">Orden de paro: 1 = parar</MultiLanguageText></Comment></Member>
+    <Member Name="Termico_OK" Datatype="Bool" Remanence="NonRetain" Accessibility="Public"><AttributeList><BooleanAttribute Name="ExternalAccessible" SystemDefined="true">true</BooleanAttribute><BooleanAttribute Name="ExternalVisible" SystemDefined="true">true</BooleanAttribute><BooleanAttribute Name="ExternalWritable" SystemDefined="true">true</BooleanAttribute></AttributeList><Comment><MultiLanguageText Lang="es-MX">1 = rele termico sin falla</MultiLanguageText></Comment></Member>
+    <Member Name="Reset" Datatype="Bool" Remanence="NonRetain" Accessibility="Public"><AttributeList><BooleanAttribute Name="ExternalAccessible" SystemDefined="true">true</BooleanAttribute><BooleanAttribute Name="ExternalVisible" SystemDefined="true">true</BooleanAttribute><BooleanAttribute Name="ExternalWritable" SystemDefined="true">true</BooleanAttribute></AttributeList><Comment><MultiLanguageText Lang="es-MX">Reset de falla</MultiLanguageText></Comment></Member>
+  </Section>
+  <Section Name="Output">
+    <Member Name="Motor" Datatype="Bool" Remanence="NonRetain" Accessibility="Public"><AttributeList><BooleanAttribute Name="ExternalAccessible" SystemDefined="true">true</BooleanAttribute><BooleanAttribute Name="ExternalVisible" SystemDefined="true">true</BooleanAttribute><BooleanAttribute Name="ExternalWritable" SystemDefined="true">true</BooleanAttribute></AttributeList><Comment><MultiLanguageText Lang="es-MX">Orden al contactor</MultiLanguageText></Comment></Member>
+    <Member Name="Piloto_Marcha" Datatype="Bool" Remanence="NonRetain" Accessibility="Public"><AttributeList><BooleanAttribute Name="ExternalAccessible" SystemDefined="true">true</BooleanAttribute><BooleanAttribute Name="ExternalVisible" SystemDefined="true">true</BooleanAttribute><BooleanAttribute Name="ExternalWritable" SystemDefined="true">true</BooleanAttribute></AttributeList><Comment><MultiLanguageText Lang="es-MX">Piloto verde</MultiLanguageText></Comment></Member>
+    <Member Name="Piloto_Falla" Datatype="Bool" Remanence="NonRetain" Accessibility="Public"><AttributeList><BooleanAttribute Name="ExternalAccessible" SystemDefined="true">true</BooleanAttribute><BooleanAttribute Name="ExternalVisible" SystemDefined="true">true</BooleanAttribute><BooleanAttribute Name="ExternalWritable" SystemDefined="true">true</BooleanAttribute></AttributeList><Comment><MultiLanguageText Lang="es-MX">Piloto rojo</MultiLanguageText></Comment></Member>
+    <Member Name="Estado" Datatype="Int" Remanence="NonRetain" Accessibility="Public"><AttributeList><BooleanAttribute Name="ExternalAccessible" SystemDefined="true">true</BooleanAttribute><BooleanAttribute Name="ExternalVisible" SystemDefined="true">true</BooleanAttribute><BooleanAttribute Name="ExternalWritable" SystemDefined="true">true</BooleanAttribute></AttributeList><Comment><MultiLanguageText Lang="es-MX">Estado actual (HMI)</MultiLanguageText></Comment></Member>
+  </Section>
+  <Section Name="InOut" />
+  <Section Name="Static">
+    <Member Name="Estado_Actual" Datatype="Int" Remanence="NonRetain" Accessibility="Public"><AttributeList><BooleanAttribute Name="ExternalAccessible" SystemDefined="true">true</BooleanAttribute><BooleanAttribute Name="ExternalVisible" SystemDefined="true">true</BooleanAttribute><BooleanAttribute Name="ExternalWritable" SystemDefined="true">true</BooleanAttribute><BooleanAttribute Name="SetPoint" SystemDefined="true">false</BooleanAttribute></AttributeList><Comment><MultiLanguageText Lang="es-MX">Estado de la maquina</MultiLanguageText></Comment><StartValue>0</StartValue></Member>
+  </Section>
+  <Section Name="Temp">
+    <Member Name="Estado_Previo" Datatype="Int">
+      <Comment>
+        <MultiLanguageText Lang="es-MX">Estado al inicio del ciclo</MultiLanguageText>
+      </Comment>
+    </Member>
+  </Section>
+  <Section Name="Constant" />
+</Sections></Interface>
+      <IsIECCheckEnabled>false</IsIECCheckEnabled>
+      <IsRetainMemResEnabled>false</IsRetainMemResEnabled>
+      <MemoryLayout>Optimized</MemoryLayout>
+      <MemoryReserve>100</MemoryReserve>
+      <Name>FB_Motor_Mealy</Name>
+      <Number>4</Number>
+      <ProgrammingLanguage>SCL</ProgrammingLanguage>
+      <SetENOAutomatically>false</SetENOAutomatically>
+      <UDABlockProperties />
+      <UDAEnableTagReadback>false</UDAEnableTagReadback>
+    </AttributeList>
+    <ObjectList>
+      <MultilingualText ID="1" CompositionName="Comment">
+        <ObjectList>
+          <MultilingualTextItem ID="2" CompositionName="Items">
+            <AttributeList>
+              <Culture>en-US</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+          <MultilingualTextItem ID="3" CompositionName="Items">
+            <AttributeList>
+              <Culture>es-MX</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+        </ObjectList>
+      </MultilingualText>
+      <SW.Blocks.CompileUnit ID="4" CompositionName="CompileUnits">
+        <AttributeList>
+          <NetworkSource><StructuredText xmlns="http://www.siemens.com/automation/Openness/SW/NetworkSource/StructuredText/v3">
+  <Blank Num="4" UId="21" />
+  <LineComment Inserted="false" NoClosingBracket="false" UId="22">
+    <Text UId="23"> Mealy: las salidas dependen del estado y de las entradas (reaccion en el mismo ciclo). Generado por TIA_MCP_V17 (crear_maquina_estados).</Text>
+  </LineComment>
+  <NewLine Num="1" UId="24" />
+  <Blank Num="4" UId="25" />
+  <LineComment Inserted="false" NoClosingBracket="false" UId="26">
+    <Text UId="27"> Estados: 0 = REPOSO, 10 = MARCHA, 90 = FALLA</Text>
+  </LineComment>
+  <NewLine Num="1" UId="28" />
+  <Blank Num="4" UId="29" />
+  <NewLine Num="1" UId="30" />
+  <Blank Num="4" UId="31" />
+  <LineComment Inserted="false" NoClosingBracket="false" UId="32">
+    <Text UId="33"> --- Salidas (estado actual + entradas) ---</Text>
+  </LineComment>
+  <NewLine Num="1" UId="34" />
+  <Blank Num="4" UId="35" />
+  <Access Scope="LocalVariable" UId="36">
+    <Symbol UId="37">
+      <Component Name="Motor" UId="38" />
+    </Symbol>
+  </Access>
+  <Blank Num="1" UId="39" />
+  <Token Text=":=" UId="40" />
+  <Blank Num="1" UId="41" />
+  <Token Text="(" UId="42" />
+  <Access Scope="LocalVariable" UId="43">
+    <Symbol UId="44">
+      <Component Name="Estado_Actual" UId="45" />
+    </Symbol>
+  </Access>
+  <Blank Num="1" UId="46" />
+  <Token Text="=" UId="47" />
+  <Blank Num="1" UId="48" />
+  <Access Scope="LiteralConstant" UId="49">
+    <Constant UId="50">
+      <ConstantValue UId="52">10</ConstantValue>
+    </Constant>
+  </Access>
+  <Blank Num="1" UId="53" />
+  <Token Text="AND" UId="54" />
+  <Blank Num="1" UId="55" />
+  <Token Text="NOT" UId="56" />
+  <Blank Num="1" UId="57" />
+  <Access Scope="LocalVariable" UId="58">
+    <Symbol UId="59">
+      <Component Name="Paro" UId="60" />
+    </Symbol>
+  </Access>
+  <Blank Num="1" UId="61" />
+  <Token Text="AND" UId="62" />
+  <Blank Num="1" UId="63" />
+  <Access Scope="LocalVariable" UId="64">
+    <Symbol UId="65">
+      <Component Name="Termico_OK" UId="66" />
+    </Symbol>
+  </Access>
+  <Token Text=")" UId="67" />
+  <Token Text=";" UId="68" />
+  <NewLine Num="1" UId="69" />
+  <Blank Num="4" UId="70" />
+  <Access Scope="LocalVariable" UId="71">
+    <Symbol UId="72">
+      <Component Name="Piloto_Marcha" UId="73" />
+    </Symbol>
+  </Access>
+  <Blank Num="1" UId="74" />
+  <Token Text=":=" UId="75" />
+  <Blank Num="1" UId="76" />
+  <Access Scope="LocalVariable" UId="77">
+    <Symbol UId="78">
+      <Component Name="Estado_Actual" UId="79" />
+    </Symbol>
+  </Access>
+  <Blank Num="1" UId="80" />
+  <Token Text="=" UId="81" />
+  <Blank Num="1" UId="82" />
+  <Access Scope="LiteralConstant" UId="83">
+    <Constant UId="84">
+      <ConstantValue UId="86">10</ConstantValue>
+    </Constant>
+  </Access>
+  <Token Text=";" UId="87" />
+  <NewLine Num="1" UId="88" />
+  <Blank Num="4" UId="89" />
+  <Access Scope="LocalVariable" UId="90">
+    <Symbol UId="91">
+      <Component Name="Piloto_Falla" UId="92" />
+    </Symbol>
+  </Access>
+  <Blank Num="1" UId="93" />
+  <Token Text=":=" UId="94" />
+  <Blank Num="1" UId="95" />
+  <Access Scope="LocalVariable" UId="96">
+    <Symbol UId="97">
+      <Component Name="Estado_Actual" UId="98" />
+    </Symbol>
+  </Access>
+  <Blank Num="1" UId="99" />
+  <Token Text="=" UId="100" />
+  <Blank Num="1" UId="101" />
+  <Access Scope="LiteralConstant" UId="102">
+    <Constant UId="103">
+      <ConstantValue UId="105">90</ConstantValue>
+    </Constant>
+  </Access>
+  <Token Text=";" UId="106" />
+  <NewLine Num="1" UId="107" />
+  <Blank Num="4" UId="108" />
+  <NewLine Num="1" UId="109" />
+  <Blank Num="4" UId="110" />
+  <LineComment Inserted="false" NoClosingBracket="false" UId="111">
+    <Text UId="112"> --- Transiciones (sobre la foto del estado: un salto por ciclo) ---</Text>
+  </LineComment>
+  <NewLine Num="1" UId="113" />
+  <Blank Num="4" UId="114" />
+  <Access Scope="LocalVariable" UId="115">
+    <Symbol UId="116">
+      <Component Name="Estado_Previo" UId="117" />
+    </Symbol>
+  </Access>
+  <Blank Num="1" UId="118" />
+  <Token Text=":=" UId="119" />
+  <Blank Num="1" UId="120" />
+  <Access Scope="LocalVariable" UId="121">
+    <Symbol UId="122">
+      <Component Name="Estado_Actual" UId="123" />
+    </Symbol>
+  </Access>
+  <Token Text=";" UId="124" />
+  <NewLine Num="1" UId="125" />
+  <Blank Num="4" UId="126" />
+  <Token Text="CASE" UId="127" />
+  <Blank Num="1" UId="128" />
+  <Access Scope="LocalVariable" UId="129">
+    <Symbol UId="130">
+      <Component Name="Estado_Previo" UId="131" />
+    </Symbol>
+  </Access>
+  <Blank Num="1" UId="132" />
+  <Token Text="OF" UId="133" />
+  <NewLine Num="1" UId="134" />
+  <Blank Num="8" UId="135" />
+  <Access Scope="LiteralConstant" UId="136">
+    <Constant UId="137">
+      <ConstantValue UId="139">0</ConstantValue>
+    </Constant>
+  </Access>
+  <Token Text=":" UId="140" />
+  <Blank Num="1" UId="141" />
+  <LineComment Inserted="false" NoClosingBracket="false" UId="142">
+    <Text UId="143"> REPOSO</Text>
+  </LineComment>
+  <NewLine Num="1" UId="144" />
+  <Blank Num="12" UId="145" />
+  <Token Text="IF" UId="146" />
+  <Blank Num="1" UId="147" />
+  <Token Text="NOT" UId="148" />
+  <Blank Num="1" UId="149" />
+  <Access Scope="LocalVariable" UId="150">
+    <Symbol UId="151">
+      <Component Name="Termico_OK" UId="152" />
+    </Symbol>
+  </Access>
+  <Blank Num="1" UId="153" />
+  <Token Text="THEN" UId="154" />
+  <NewLine Num="1" UId="155" />
+  <Blank Num="16" UId="156" />
+  <Access Scope="LocalVariable" UId="157">
+    <Symbol UId="158">
+      <Component Name="Estado_Actual" UId="159" />
+    </Symbol>
+  </Access>
+  <Blank Num="1" UId="160" />
+  <Token Text=":=" UId="161" />
+  <Blank Num="1" UId="162" />
+  <Access Scope="LiteralConstant" UId="163">
+    <Constant UId="164">
+      <ConstantValue UId="166">90</ConstantValue>
+    </Constant>
+  </Access>
+  <Token Text=";" UId="167" />
+  <Blank Num="3" UId="168" />
+  <LineComment Inserted="false" NoClosingBracket="false" UId="169">
+    <Text UId="170"> -&gt; FALLA</Text>
+  </LineComment>
+  <NewLine Num="1" UId="171" />
+  <Blank Num="12" UId="172" />
+  <Token Text="ELSIF" UId="173" />
+  <Blank Num="1" UId="174" />
+  <Access Scope="LocalVariable" UId="175">
+    <Symbol UId="176">
+      <Component Name="Marcha" UId="177" />
+    </Symbol>
+  </Access>
+  <Blank Num="1" UId="178" />
+  <Token Text="AND" UId="179" />
+  <Blank Num="1" UId="180" />
+  <Token Text="NOT" UId="181" />
+  <Blank Num="1" UId="182" />
+  <Access Scope="LocalVariable" UId="183">
+    <Symbol UId="184">
+      <Component Name="Paro" UId="185" />
+    </Symbol>
+  </Access>
+  <Blank Num="1" UId="186" />
+  <Token Text="AND" UId="187" />
+  <Blank Num="1" UId="188" />
+  <Access Scope="LocalVariable" UId="189">
+    <Symbol UId="190">
+      <Component Name="Termico_OK" UId="191" />
+    </Symbol>
+  </Access>
+  <Blank Num="1" UId="192" />
+  <Token Text="THEN" UId="193" />
+  <NewLine Num="1" UId="194" />
+  <Blank Num="16" UId="195" />
+  <Access Scope="LocalVariable" UId="196">
+    <Symbol UId="197">
+      <Component Name="Estado_Actual" UId="198" />
+    </Symbol>
+  </Access>
+  <Blank Num="1" UId="199" />
+  <Token Text=":=" UId="200" />
+  <Blank Num="1" UId="201" />
+  <Access Scope="LiteralConstant" UId="202">
+    <Constant UId="203">
+      <ConstantValue UId="205">10</ConstantValue>
+    </Constant>
+  </Access>
+  <Token Text=";" UId="206" />
+  <Blank Num="3" UId="207" />
+  <LineComment Inserted="false" NoClosingBracket="false" UId="208">
+    <Text UId="209"> -&gt; MARCHA</Text>
+  </LineComment>
+  <NewLine Num="1" UId="210" />
+  <Blank Num="12" UId="211" />
+  <Token Text="END_IF" UId="212" />
+  <Token Text=";" UId="213" />
+  <NewLine Num="1" UId="214" />
+  <Blank Num="8" UId="215" />
+  <Access Scope="LiteralConstant" UId="216">
+    <Constant UId="217">
+      <ConstantValue UId="219">10</ConstantValue>
+    </Constant>
+  </Access>
+  <Token Text=":" UId="220" />
+  <Blank Num="1" UId="221" />
+  <LineComment Inserted="false" NoClosingBracket="false" UId="222">
+    <Text UId="223"> MARCHA</Text>
+  </LineComment>
+  <NewLine Num="1" UId="224" />
+  <Blank Num="12" UId="225" />
+  <Token Text="IF" UId="226" />
+  <Blank Num="1" UId="227" />
+  <Token Text="NOT" UId="228" />
+  <Blank Num="1" UId="229" />
+  <Access Scope="LocalVariable" UId="230">
+    <Symbol UId="231">
+      <Component Name="Termico_OK" UId="232" />
+    </Symbol>
+  </Access>
+  <Blank Num="1" UId="233" />
+  <Token Text="THEN" UId="234" />
+  <NewLine Num="1" UId="235" />
+  <Blank Num="16" UId="236" />
+  <Access Scope="LocalVariable" UId="237">
+    <Symbol UId="238">
+      <Component Name="Estado_Actual" UId="239" />
+    </Symbol>
+  </Access>
+  <Blank Num="1" UId="240" />
+  <Token Text=":=" UId="241" />
+  <Blank Num="1" UId="242" />
+  <Access Scope="LiteralConstant" UId="243">
+    <Constant UId="244">
+      <ConstantValue UId="246">90</ConstantValue>
+    </Constant>
+  </Access>
+  <Token Text=";" UId="247" />
+  <Blank Num="3" UId="248" />
+  <LineComment Inserted="false" NoClosingBracket="false" UId="249">
+    <Text UId="250"> -&gt; FALLA</Text>
+  </LineComment>
+  <NewLine Num="1" UId="251" />
+  <Blank Num="12" UId="252" />
+  <Token Text="ELSIF" UId="253" />
+  <Blank Num="1" UId="254" />
+  <Access Scope="LocalVariable" UId="255">
+    <Symbol UId="256">
+      <Component Name="Paro" UId="257" />
+    </Symbol>
+  </Access>
+  <Blank Num="1" UId="258" />
+  <Token Text="THEN" UId="259" />
+  <NewLine Num="1" UId="260" />
+  <Blank Num="16" UId="261" />
+  <Access Scope="LocalVariable" UId="262">
+    <Symbol UId="263">
+      <Component Name="Estado_Actual" UId="264" />
+    </Symbol>
+  </Access>
+  <Blank Num="1" UId="265" />
+  <Token Text=":=" UId="266" />
+  <Blank Num="1" UId="267" />
+  <Access Scope="LiteralConstant" UId="268">
+    <Constant UId="269">
+      <ConstantValue UId="271">0</ConstantValue>
+    </Constant>
+  </Access>
+  <Token Text=";" UId="272" />
+  <Blank Num="3" UId="273" />
+  <LineComment Inserted="false" NoClosingBracket="false" UId="274">
+    <Text UId="275"> -&gt; REPOSO</Text>
+  </LineComment>
+  <NewLine Num="1" UId="276" />
+  <Blank Num="12" UId="277" />
+  <Token Text="END_IF" UId="278" />
+  <Token Text=";" UId="279" />
+  <NewLine Num="1" UId="280" />
+  <Blank Num="8" UId="281" />
+  <Access Scope="LiteralConstant" UId="282">
+    <Constant UId="283">
+      <ConstantValue UId="285">90</ConstantValue>
+    </Constant>
+  </Access>
+  <Token Text=":" UId="286" />
+  <Blank Num="1" UId="287" />
+  <LineComment Inserted="false" NoClosingBracket="false" UId="288">
+    <Text UId="289"> FALLA</Text>
+  </LineComment>
+  <NewLine Num="1" UId="290" />
+  <Blank Num="12" UId="291" />
+  <Token Text="IF" UId="292" />
+  <Blank Num="1" UId="293" />
+  <Access Scope="LocalVariable" UId="294">
+    <Symbol UId="295">
+      <Component Name="Reset" UId="296" />
+    </Symbol>
+  </Access>
+  <Blank Num="1" UId="297" />
+  <Token Text="AND" UId="298" />
+  <Blank Num="1" UId="299" />
+  <Access Scope="LocalVariable" UId="300">
+    <Symbol UId="301">
+      <Component Name="Termico_OK" UId="302" />
+    </Symbol>
+  </Access>
+  <Blank Num="1" UId="303" />
+  <Token Text="THEN" UId="304" />
+  <NewLine Num="1" UId="305" />
+  <Blank Num="16" UId="306" />
+  <Access Scope="LocalVariable" UId="307">
+    <Symbol UId="308">
+      <Component Name="Estado_Actual" UId="309" />
+    </Symbol>
+  </Access>
+  <Blank Num="1" UId="310" />
+  <Token Text=":=" UId="311" />
+  <Blank Num="1" UId="312" />
+  <Access Scope="LiteralConstant" UId="313">
+    <Constant UId="314">
+      <ConstantValue UId="316">0</ConstantValue>
+    </Constant>
+  </Access>
+  <Token Text=";" UId="317" />
+  <Blank Num="3" UId="318" />
+  <LineComment Inserted="false" NoClosingBracket="false" UId="319">
+    <Text UId="320"> -&gt; REPOSO</Text>
+  </LineComment>
+  <NewLine Num="1" UId="321" />
+  <Blank Num="12" UId="322" />
+  <Token Text="END_IF" UId="323" />
+  <Token Text=";" UId="324" />
+  <NewLine Num="1" UId="325" />
+  <Blank Num="8" UId="326" />
+  <Token Text="ELSE" UId="327" />
+  <Blank Num="2" UId="328" />
+  <LineComment Inserted="false" NoClosingBracket="false" UId="329">
+    <Text UId="330"> estado desconocido: volver al inicial</Text>
+  </LineComment>
+  <NewLine Num="1" UId="331" />
+  <Blank Num="12" UId="332" />
+  <Access Scope="LocalVariable" UId="333">
+    <Symbol UId="334">
+      <Component Name="Estado_Actual" UId="335" />
+    </Symbol>
+  </Access>
+  <Blank Num="1" UId="336" />
+  <Token Text=":=" UId="337" />
+  <Blank Num="1" UId="338" />
+  <Access Scope="LiteralConstant" UId="339">
+    <Constant UId="340">
+      <ConstantValue UId="342">0</ConstantValue>
+    </Constant>
+  </Access>
+  <Token Text=";" UId="343" />
+  <NewLine Num="1" UId="344" />
+  <Blank Num="4" UId="345" />
+  <Token Text="END_CASE" UId="346" />
+  <Token Text=";" UId="347" />
+  <NewLine Num="1" UId="348" />
+  <Blank Num="4" UId="349" />
+  <NewLine Num="1" UId="350" />
+  <Blank Num="4" UId="351" />
+  <Access Scope="LocalVariable" UId="352">
+    <Symbol UId="353">
+      <Component Name="Estado" UId="354" />
+    </Symbol>
+  </Access>
+  <Blank Num="1" UId="355" />
+  <Token Text=":=" UId="356" />
+  <Blank Num="1" UId="357" />
+  <Access Scope="LocalVariable" UId="358">
+    <Symbol UId="359">
+      <Component Name="Estado_Actual" UId="360" />
+    </Symbol>
+  </Access>
+  <Token Text=";" UId="361" />
+</StructuredText></NetworkSource>
+          <ProgrammingLanguage>SCL</ProgrammingLanguage>
+        </AttributeList>
+        <ObjectList>
+          <MultilingualText ID="5" CompositionName="Comment">
+            <ObjectList>
+              <MultilingualTextItem ID="6" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-US</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+              <MultilingualTextItem ID="7" CompositionName="Items">
+                <AttributeList>
+                  <Culture>es-MX</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+          <MultilingualText ID="8" CompositionName="Title">
+            <ObjectList>
+              <MultilingualTextItem ID="9" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-US</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+              <MultilingualTextItem ID="A" CompositionName="Items">
+                <AttributeList>
+                  <Culture>es-MX</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+        </ObjectList>
+      </SW.Blocks.CompileUnit>
+      <MultilingualText ID="B" CompositionName="Title">
+        <ObjectList>
+          <MultilingualTextItem ID="C" CompositionName="Items">
+            <AttributeList>
+              <Culture>en-US</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+          <MultilingualTextItem ID="D" CompositionName="Items">
+            <AttributeList>
+              <Culture>es-MX</Culture>
+              <Text>Arranque y paro: maquina de estados MEALY</Text>
+            </AttributeList>
+          </MultilingualTextItem>
+        </ObjectList>
+      </MultilingualText>
+    </ObjectList>
+  </SW.Blocks.FB>
+</Document>

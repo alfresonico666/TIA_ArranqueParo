@@ -1,0 +1,62 @@
+FUNCTION_BLOCK "FB_Motor_Mealy"
+TITLE = Arranque y paro: maquina de estados MEALY
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_INPUT 
+      Marcha : Bool;   // Orden de marcha (pulsador o HMI)
+      Paro : Bool;   // Orden de paro: 1 = parar
+      Termico_OK : Bool;   // 1 = rele termico sin falla
+      Reset : Bool;   // Reset de falla
+   END_VAR
+
+   VAR_OUTPUT 
+      Motor : Bool;   // Orden al contactor
+      Piloto_Marcha : Bool;   // Piloto verde
+      Piloto_Falla : Bool;   // Piloto rojo
+      Estado : Int;   // Estado actual (HMI)
+   END_VAR
+
+   VAR 
+      Estado_Actual : Int := 0;   // Estado de la maquina
+   END_VAR
+
+   VAR_TEMP 
+      Estado_Previo : Int;   // Estado al inicio del ciclo
+   END_VAR
+
+
+BEGIN
+	    // Mealy: las salidas dependen del estado y de las entradas (reaccion en el mismo ciclo). Generado por TIA_MCP_V17 (crear_maquina_estados).
+	    // Estados: 0 = REPOSO, 10 = MARCHA, 90 = FALLA
+	    
+	    // --- Salidas (estado actual + entradas) ---
+	    #Motor := (#Estado_Actual = 10 AND NOT #Paro AND #Termico_OK);
+	    #Piloto_Marcha := #Estado_Actual = 10;
+	    #Piloto_Falla := #Estado_Actual = 90;
+	    
+	    // --- Transiciones (sobre la foto del estado: un salto por ciclo) ---
+	    #Estado_Previo := #Estado_Actual;
+	    CASE #Estado_Previo OF
+	        0: // REPOSO
+	            IF NOT #Termico_OK THEN
+	                #Estado_Actual := 90;   // -> FALLA
+	            ELSIF #Marcha AND NOT #Paro AND #Termico_OK THEN
+	                #Estado_Actual := 10;   // -> MARCHA
+	            END_IF;
+	        10: // MARCHA
+	            IF NOT #Termico_OK THEN
+	                #Estado_Actual := 90;   // -> FALLA
+	            ELSIF #Paro THEN
+	                #Estado_Actual := 0;   // -> REPOSO
+	            END_IF;
+	        90: // FALLA
+	            IF #Reset AND #Termico_OK THEN
+	                #Estado_Actual := 0;   // -> REPOSO
+	            END_IF;
+	        ELSE  // estado desconocido: volver al inicial
+	            #Estado_Actual := 0;
+	    END_CASE;
+	    
+	    #Estado := #Estado_Actual;
+END_FUNCTION_BLOCK
+

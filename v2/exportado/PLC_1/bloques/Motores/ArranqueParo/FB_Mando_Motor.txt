@@ -1,0 +1,29 @@
+FB "FB_Mando_Motor" [2] (LAD) — Mando del motor: pulsadores + HMI
+// Une pulsadores físicos y botones HMI. Reset = botón RESET de la HMI o mantener MARCHA 3 s.
+Interfaz:
+  Input:
+    PB_Marcha : Bool  // Pulsador MARCHA (NA)
+    PB_Paro_NC : Bool  // Pulsador PARO (NC)
+    Termico_NC : Bool  // Relé térmico (NC)
+    HMI_Marcha : Bool
+    HMI_Paro : Bool
+    HMI_Reset : Bool
+  Output:
+    Marcha : Bool
+    Paro : Bool
+    Termico_OK : Bool
+    Reset : Bool
+  Static:
+    T_Reset : TON_TIME  // Tiempo de MARCHA mantenida
+    Reset_Mantenido : Bool  // MARCHA mantenida 3 s
+Red 1: Marcha  // Pulsador físico o botón de la HMI.
+  #Marcha := #PB_Marcha OR #HMI_Marcha
+Red 2: Paro  // Paro NC (0 = pulsado o cable cortado) o botón PARO de la HMI.
+  #Paro := NOT #PB_Paro_NC OR #HMI_Paro
+Red 3: Térmico  // Contacto NC del relé térmico: 1 = sin falla.
+  #Termico_OK := #Termico_NC
+Red 4: MARCHA mantenida 3 s  // Patrón de reset probado: mantener el pulsador 3 s.
+  #T_Reset TON(IN:=#PB_Marcha, PT:=T#3s)
+  #Reset_Mantenido := #T_Reset.Q
+Red 5: Reset  // Botón RESET de la HMI o MARCHA mantenida 3 s.
+  #Reset := #Reset_Mantenido OR #HMI_Reset

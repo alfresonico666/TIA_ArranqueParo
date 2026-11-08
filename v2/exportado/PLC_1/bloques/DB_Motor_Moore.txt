@@ -1,0 +1,15 @@
+InstanceDB "DB_Motor_Moore" [4] (DB)
+Instancia de: FB_Motor_Moore
+Interfaz:
+  Input:
+    Marcha : Bool
+    Paro : Bool
+    Termico_OK : Bool
+    Reset : Bool
+  Output:
+    Motor : Bool
+    Piloto_Marcha : Bool
+    Piloto_Falla : Bool
+    Estado : Int
+  Static:
+    Estado_Actual : Int

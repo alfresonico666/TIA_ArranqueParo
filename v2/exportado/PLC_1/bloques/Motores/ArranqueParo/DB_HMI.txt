@@ -1,0 +1,11 @@
+GlobalDB "DB_HMI" [1] (DB)
+Interfaz:
+  Static:
+    Cmd_Marcha : Bool  // Boton MARCHA de la HMI (momentaneo)
+    Cmd_Paro : Bool  // Boton PARO de la HMI (momentaneo)
+    Cmd_Reset : Bool  // Boton RESET de la HMI (momentaneo)
+    Sel_Estilo : Int := 1  // 1 Banderas, 2 Moore, 3 Mealy
+    Estado : Int  // Estado del estilo seleccionado: 0 Reposo, 10 Marcha, 90 Falla
+    Motor_En_Marcha : Bool  // Copia de KM1_Motor para la HMI
+    Falla_Termico : Bool  // Termico disparado
+    Pantalla : Int  // Pantalla activa en la HMI (1 Principal, 2 Diagnostico, 3 Estilos)

@@ -1,0 +1,37 @@
+FB "FB_Motor_Moore" [5] (LAD) — Arranque y paro: máquina de estados MOORE
+// Moore: las salidas dependen solo del estado. Generado por TIA_MCP_V17 (crear_maquina_estados).
+Interfaz:
+  Input:
+    Marcha : Bool  // Orden de marcha (pulsador o HMI)
+    Paro : Bool  // Orden de paro: 1 = parar
+    Termico_OK : Bool  // 1 = relé térmico sin falla
+    Reset : Bool  // Reset de falla
+  Output:
+    Motor : Bool  // Orden al contactor
+    Piloto_Marcha : Bool  // Piloto verde
+    Piloto_Falla : Bool  // Piloto rojo
+    Estado : Int  // Estado actual
+  Static:
+    Estado_Actual : Int := 0  // Estado de la máquina
+  Temp:
+    Estado_Previo : Int  // Estado al inicio del ciclo
+Red 1: Foto del estado al inicio del ciclo  // Las transiciones se evalúan sobre esta copia: un solo salto por ciclo.
+  Move(en:=1, in:=#Estado_Actual, out1=>#Estado_Previo)
+Red 2: FALLA -> REPOSO  // Si estado = FALLA (90) y Reset Y Termico_OK pasa a REPOSO (0).
+  Move(en:=#Estado_Previo == 90 AND #Reset AND #Termico_OK, in:=0, out1=>#Estado_Actual)
+Red 3: MARCHA -> REPOSO  // Si estado = MARCHA (10) y Paro pasa a REPOSO (0).
+  Move(en:=#Estado_Previo == 10 AND #Paro, in:=0, out1=>#Estado_Actual)
+Red 4: REPOSO -> MARCHA  // Si estado = REPOSO (0) y Marcha Y NOT Paro Y Termico_OK pasa a MARCHA (10).
+  Move(en:=#Estado_Previo == 0 AND #Marcha AND NOT #Paro AND #Termico_OK, in:=10, out1=>#Estado_Actual)
+Red 5: MARCHA -> FALLA  // Si estado = MARCHA (10) y NOT Termico_OK pasa a FALLA (90).
+  Move(en:=#Estado_Previo == 10 AND NOT #Termico_OK, in:=90, out1=>#Estado_Actual)
+Red 6: REPOSO -> FALLA  // Si estado = REPOSO (0) y NOT Termico_OK pasa a FALLA (90).
+  Move(en:=#Estado_Previo == 0 AND NOT #Termico_OK, in:=90, out1=>#Estado_Actual)
+Red 7: Salida Motor  // Moore: solo depende del estado (MARCHA).
+  #Motor := #Estado_Actual == 10
+Red 8: Salida Piloto_Marcha  // Moore: solo depende del estado (MARCHA).
+  #Piloto_Marcha := #Estado_Actual == 10
+Red 9: Salida Piloto_Falla  // Moore: solo depende del estado (FALLA).
+  #Piloto_Falla := #Estado_Actual == 90
+Red 10: Estado para HMI / diagnóstico  // 0 = REPOSO; 10 = MARCHA; 90 = FALLA
+  Move(en:=1, in:=#Estado_Actual, out1=>#Estado)

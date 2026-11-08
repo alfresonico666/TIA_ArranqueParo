@@ -1,0 +1,30 @@
+OB "Main" [1] (LAD) — "Main Program Sweep (Cycle)"
+// OB1 director: una red por función. Los 3 estilos corren a la vez; el selector de la HMI decide cuál maneja KM1 y los pilotos.
+Interfaz:
+  Input:
+    Initial_Call : Bool  // Initial call of this OB
+    Remanence : Bool  // =True, if remanent data are available
+Red 1: MANDO: pulsadores + HMI  // Une entradas físicas y botones de la HMI.
+  CALL "FB_Mando_Motor" ("DB_Mando")(en:=1, PB_Marcha:="PB_Marcha", PB_Paro_NC:="PB_Paro_NC", Termico_NC:="MOT1_Termico_NC", HMI_Marcha:="DB_HMI".Cmd_Marcha, HMI_Paro:="DB_HMI".Cmd_Paro, HMI_Reset:="DB_HMI".Cmd_Reset)
+Red 2: ESTILO 1: BANDERAS (S/R)
+  CALL "FB_Motor_Banderas" ("DB_Motor_Banderas")(en:=1, Marcha:="DB_Mando".Marcha, Paro:="DB_Mando".Paro, Termico_OK:="DB_Mando".Termico_OK, Reset:="DB_Mando".Reset)
+Red 3: ESTILO 2: MOORE (estados, KOP)
+  CALL "FB_Motor_Moore" ("DB_Motor_Moore")(en:=1, Marcha:="DB_Mando".Marcha, Paro:="DB_Mando".Paro, Termico_OK:="DB_Mando".Termico_OK, Reset:="DB_Mando".Reset)
+Red 4: ESTILO 3: MEALY (estados, SCL)
+  CALL "FB_Motor_Mealy" ("DB_Motor_Mealy")(en:=1, Marcha:="DB_Mando".Marcha, Paro:="DB_Mando".Paro, Termico_OK:="DB_Mando".Termico_OK, Reset:="DB_Mando".Reset)
+Red 5: SALIDA: contactor KM1 según estilo  // Solo el estilo elegido en la HMI manda.
+  "KM1_Motor" := "DB_HMI".Sel_Estilo == 1 AND "DB_Motor_Banderas".Motor OR "DB_HMI".Sel_Estilo == 2 AND "DB_Motor_Moore".Motor OR "DB_HMI".Sel_Estilo == 3 AND "DB_Motor_Mealy".Motor
+Red 6: SALIDA: piloto de marcha
+  "HL_Marcha" := "DB_HMI".Sel_Estilo == 1 AND "DB_Motor_Banderas".Piloto_Marcha OR "DB_HMI".Sel_Estilo == 2 AND "DB_Motor_Moore".Piloto_Marcha OR "DB_HMI".Sel_Estilo == 3 AND "DB_Motor_Mealy".Piloto_Marcha
+Red 7: SALIDA: piloto de falla
+  "HL_Falla" := "DB_HMI".Sel_Estilo == 1 AND "DB_Motor_Banderas".Piloto_Falla OR "DB_HMI".Sel_Estilo == 2 AND "DB_Motor_Moore".Piloto_Falla OR "DB_HMI".Sel_Estilo == 3 AND "DB_Motor_Mealy".Piloto_Falla
+Red 8: HMI: motor en marcha
+  "DB_HMI".Motor_En_Marcha := "KM1_Motor"
+Red 9: HMI: falla térmico
+  "DB_HMI".Falla_Termico := NOT "MOT1_Termico_NC"
+Red 10: HMI: estado del estilo 1
+  Move(en:="DB_HMI".Sel_Estilo == 1, in:="DB_Motor_Banderas".Estado, out1=>"DB_HMI".Estado)
+Red 11: HMI: estado del estilo 2
+  Move(en:="DB_HMI".Sel_Estilo == 2, in:="DB_Motor_Moore".Estado, out1=>"DB_HMI".Estado)
+Red 12: HMI: estado del estilo 3
+  Move(en:="DB_HMI".Sel_Estilo == 3, in:="DB_Motor_Mealy".Estado, out1=>"DB_HMI".Estado)

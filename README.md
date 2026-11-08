@@ -1,6 +1,14 @@
 # TIA_ArranqueParo
 
-Arranque y paro de un motor en **KOP (Ladder)**. El programa se genera, se importa y se compila de forma automática en **TIA Portal V17**, usando **Claude Code + TIA Openness + Python**. No tiene costo adicional.
+Arranque y paro de un motor generado de forma automática en **TIA Portal V17** con **Claude Code + TIA Openness**, sin costo adicional.
+
+> **Versión actual: [v2 — PLC + HMI KTP400 + 3 estilos (Banderas / Moore / Mealy)](v2/README.md)**, generada con el MCP [TIA_MCP_V17](https://github.com/alfresonico666/TIA_MCP_V17).
+>
+> | Principal | Diagnóstico | Estilos |
+> |---|---|---|
+> | ![](v2/docs/pantalla_Principal.png) | ![](v2/docs/pantalla_Diagnostico.png) | ![](v2/docs/pantalla_Estilos.png) |
+
+Lo que sigue documenta la **v1**: solo PLC, generada con los scripts de la raíz (`tia/`, `programas/`).
 
 ## Lógica
 
@@ -53,6 +61,7 @@ cd C:\Users\LEGION\Proyectos\TIA_ArranqueParo
 ## Versiones
 | Versión | Contenido |
 |---|---|
-| v1_ArranqueParoLadder | Arranque y paro con retención en KOP generado por XML + Openness |
+| v1_ClaudeTIA_ArranqueParo | Arranque y paro con retención en KOP generado por XML + Openness (scripts propios) |
+| v2_ArranqueParoHMIEstilos | PLC + HMI KTP400 generados con el MCP: tablas de tags estándar, DB_HMI, mando pulsadores+HMI, 3 estilos (Banderas KOP, Moore KOP, Mealy SCL) y 3 pantallas. Ver [v2/README.md](v2/README.md) |
 
 Para saber cómo trabajamos (plantillas, referencias, copias, versiones), consulta [docs/COMO_TRABAJAMOS.md](docs/COMO_TRABAJAMOS.md).

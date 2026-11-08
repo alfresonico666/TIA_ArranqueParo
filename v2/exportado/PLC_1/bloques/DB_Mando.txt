@@ -1,0 +1,18 @@
+InstanceDB "DB_Mando" [2] (DB)
+Instancia de: FB_Mando_Motor
+Interfaz:
+  Input:
+    PB_Marcha : Bool
+    PB_Paro_NC : Bool
+    Termico_NC : Bool
+    HMI_Marcha : Bool
+    HMI_Paro : Bool
+    HMI_Reset : Bool
+  Output:
+    Marcha : Bool
+    Paro : Bool
+    Termico_OK : Bool
+    Reset : Bool
+  Static:
+    T_Reset : TON_TIME
+    Reset_Mantenido : Bool

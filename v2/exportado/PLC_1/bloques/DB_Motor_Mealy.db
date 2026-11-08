@@ -1,0 +1,10 @@
+DATA_BLOCK "DB_Motor_Mealy"
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+NON_RETAIN
+"FB_Motor_Mealy"
+
+BEGIN
+
+END_DATA_BLOCK
+

@@ -1,0 +1,18 @@
+FB "FB_Motor_Mealy" [4] (SCL) — Arranque y paro: maquina de estados MEALY
+Interfaz:
+  Input:
+    Marcha : Bool  // Orden de marcha (pulsador o HMI)
+    Paro : Bool  // Orden de paro: 1 = parar
+    Termico_OK : Bool  // 1 = rele termico sin falla
+    Reset : Bool  // Reset de falla
+  Output:
+    Motor : Bool  // Orden al contactor
+    Piloto_Marcha : Bool  // Piloto verde
+    Piloto_Falla : Bool  // Piloto rojo
+    Estado : Int  // Estado actual (HMI)
+  Static:
+    Estado_Actual : Int := 0  // Estado de la maquina
+  Temp:
+    Estado_Previo : Int  // Estado al inicio del ciclo
+Red 1: (sin título)
+  (red SCL tokenizada: usar la fuente SCL/STL del bloque)

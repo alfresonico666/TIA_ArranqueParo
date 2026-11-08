@@ -1,4 +1,4 @@
-# plantillas_xml
+# plantillas_xml (obsoleto)
 
-Bloques KOP exportados (SimaticML) desde copias de proyectos anteriores, una carpeta por proyecto.
-Se llenan en la siguiente fase; ver docs/COMO_TRABAJAMOS.md.
+Las plantillas de proyectos reales NO se guardan en este repo (es público). El MCP las exporta a
+`C:\Users\LEGION\Proyectos\_conocimiento_tia\` (solo local). Ver docs/COMO_TRABAJAMOS.md.

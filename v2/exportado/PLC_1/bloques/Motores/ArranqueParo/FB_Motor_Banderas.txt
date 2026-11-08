@@ -1,0 +1,34 @@
+FB "FB_Motor_Banderas" [3] (LAD) — Arranque y paro por BANDERAS (S/R)
+// Estilo clásico: bandera de marcha con SET/RESET (paro dominante). Sin térmico se para; al recuperarse el térmico se puede volver a arrancar sin RESET.
+Interfaz:
+  Input:
+    Marcha : Bool  // Orden de marcha (pulsador o HMI)
+    Paro : Bool  // Orden de paro: 1 = parar
+    Termico_OK : Bool  // 1 = relé térmico sin falla
+    Reset : Bool  // Reset de falla
+  Output:
+    Motor : Bool  // Orden al contactor
+    Piloto_Marcha : Bool  // Piloto verde
+    Piloto_Falla : Bool  // Piloto rojo
+    Estado : Int  // 0 Reposo, 10 Marcha, 90 Falla
+  Static:
+    B_Marcha : Bool  // Bandera: motor en marcha
+    B_Falla : Bool  // Bandera: falla térmico
+Red 1: SET bandera de marcha  // Marcha sin paro y con térmico OK.
+  S #B_Marcha  SI #Marcha AND NOT #Paro AND #Termico_OK
+Red 2: RESET bandera de marcha  // Paro o falla. Va después del SET: paro dominante.
+  R #B_Marcha  SI #Paro OR NOT #Termico_OK
+Red 3: Bandera de falla  // Sigue al térmico (no queda enclavada).
+  #B_Falla := NOT #Termico_OK
+Red 4: Salidas  // Motor y pilotos según las banderas.
+  #Motor := #B_Marcha
+Red 5: Piloto de marcha
+  #Piloto_Marcha := #B_Marcha
+Red 6: Piloto de falla
+  #Piloto_Falla := #B_Falla
+Red 7: Estado para HMI  // Equivalente a los estados de Moore/Mealy para comparar.
+  Move(en:=NOT #B_Marcha AND NOT #B_Falla, in:=0, out1=>#Estado)
+Red 8: Estado = 10 (marcha)
+  Move(en:=#B_Marcha, in:=10, out1=>#Estado)
+Red 9: Estado = 90 (falla)
+  Move(en:=#B_Falla, in:=90, out1=>#Estado)

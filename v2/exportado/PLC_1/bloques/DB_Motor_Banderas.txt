@@ -1,0 +1,16 @@
+InstanceDB "DB_Motor_Banderas" [3] (DB)
+Instancia de: FB_Motor_Banderas
+Interfaz:
+  Input:
+    Marcha : Bool
+    Paro : Bool
+    Termico_OK : Bool
+    Reset : Bool
+  Output:
+    Motor : Bool
+    Piloto_Marcha : Bool
+    Piloto_Falla : Bool
+    Estado : Int
+  Static:
+    B_Marcha : Bool
+    B_Falla : Bool
