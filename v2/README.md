@@ -9,7 +9,7 @@ Toda la especificación está en [`especificacion.py`](especificacion.py) y el g
 | HMI | KTP400 Basic PN `6AV2 123-2DB03-0AX0`, imagen V17, IP 192.168.0.2 |
 | Red | PN/IE_1 · conexión HMI `HMI_Connection_1` (se crea a mano, ver abajo) |
 | Idiomas | es-MX (edición) + en-US |
-| Resultado | PLC **0 errores** · HMI completa (solo falta la pantalla inicial, paso manual) |
+| Resultado | PLC **0 errores** · HMI **0 errores** (tags HMI enlazados al PLC por `HMI_Connection_1`) |
 
 ## Estructura del programa
 
@@ -85,14 +85,24 @@ Openness V17 **no puede** crear la conexión HMI integrada ni elegir la pantalla
 2. **Dispositivos y redes** → vista de redes → botón **Conexiones** → elige **Conexión HMI** → arrastra del puerto
    PROFINET de **HMI_1** al de **PLC_1**. Se crea `HMI_Connection_1`.
 3. **HMI_1 → Configuración de runtime → General → Pantalla inicial = `Principal`**.
-4. Guarda y **cierra el proyecto**.
+4. Guarda (Ctrl+S).
+
+> ⚠️ **No** la crees desde *HMI_1 → Conexiones*: así se genera una conexión **no integrada** (`Connection_1`),
+> que solo admite direcciones absolutas. Tiene que ser la de la **vista de redes** (`HMI_Connection_1`).
 
 ### 2. Enlazar la HMI con el PLC (automático)
+**Con el proyecto abierto en TIA** (en vivo; no lo cierra):
 ```powershell
 cd C:\Users\LEGION\Proyectos\TIA_ArranqueParo
-C:\Users\LEGION\Proyectos\TIA_MCP_V17\.venv\Scripts\python v2\generar_v2.py --enlazar-plc
+C:\Users\LEGION\Proyectos\TIA_MCP_V17\.venv\Scripts\python v2\enlazar_en_vivo.py
 ```
-Cambia los tags HMI de internos a **enlazados al PLC**. Al terminar, el PLC y la HMI deben quedar con **0 errores**.
+Hace lo siguiente:
+1. Verifica que la conexión integrada exista en el proyecto guardado. Si no está, se detiene sin tocar nada.
+2. Enlaza los 20 tags HMI al PLC.
+3. Compila el PLC y la HMI.
+4. Exporta y guarda.
+
+Con el proyecto **cerrado**, usa `generar_v2.py --enlazar-plc`. En ambos casos el resultado es: PLC y HMI con **0 errores**.
 > ⚠️ Usa `--enlazar-plc` **solo** después del paso 1: si la conexión no existe, TIA se cierra al importar los tags.
 
 ### 3. Probar con PLCSIM + simulación de HMI
@@ -114,6 +124,7 @@ Cambia los tags HMI de internos a **enlazados al PLC**. Al terminar, el PLC y la
 |---|---|
 | `especificacion.py` | Tags, DB_HMI, FB, máquinas de estados, OB1, pantallas HMI |
 | `generar_v2.py` | Orquesta el MCP: crea o abre el proyecto, programa, compila, exporta y archiva |
+| `enlazar_en_vivo.py` | Sobre el TIA abierto: verifica la conexión, enlaza tags HMI al PLC, compila y guarda |
 | `exportado/` | Lo que TIA devolvió: XML + texto de bloques, tablas de tags y pantallas (para Git) |
 | `docs/*.png` | Vistas previas de las pantallas |
 | `../entregas/v2_ArranqueParoHMIEstilos.zap17` | Proyecto archivado (adjunto en el GitHub Release, no en git) |
